@@ -1,8 +1,8 @@
 //
 //  Scene.swift
-//  Drop Memory
+//  Drop-Memory
 //
-//  Created by Marie Kristein-Harmsen on 2019/04/01.
+//  Created by Divine Dube on 2019/04/01.
 //  Copyright © 2019 DVT. All rights reserved.
 //
 
