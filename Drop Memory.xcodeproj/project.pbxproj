@@ -583,7 +583,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ND4RV4252N;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Drop Memory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -602,7 +602,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ND4RV4252N;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Drop Memory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
