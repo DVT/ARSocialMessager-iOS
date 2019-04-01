@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>840462607977-khmemi5k868fue57d8scffm1qrsikt68.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.840462607977-khmemi5k868fue57d8scffm1qrsikt68</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCh1Oxjk_JkXr0ygDhnyo_2ZWnqmpOwZ0g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>840462607977</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>za.co.dvt.Drop-Memory</string>
+	<key>PROJECT_ID</key>
+	<string>arsocialmessager</string>
+	<key>STORAGE_BUCKET</key>
+	<string>arsocialmessager.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:840462607977:ios:f695a56778581a3b</string>
+	<key>DATABASE_URL</key>
+	<string>https://arsocialmessager.firebaseio.com</string>
+</dict>
+</plist>
