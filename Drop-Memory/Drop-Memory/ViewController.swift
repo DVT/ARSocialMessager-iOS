@@ -15,11 +15,12 @@ import FirebaseDatabase
 
 class ViewController: UIViewController {
     
+    var addButton: UIButton!
+    
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var label: UILabel!
     
     var scene: SCNScene!
-    var cameraNode: SCNNode!
     var storageRef: StorageReference!
     var anchor: StorageReference!
     let locationManager: CLLocationManager = CLLocationManager()
@@ -40,9 +41,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         sceneView.delegate = self
         configureLighting()
-        addTapGestureToSceneView()
+        //addTapGestureToSceneView()
         setScene()
-        scene.rootNode.addChildNode(addCameraNode())
         storageRef = Storage.storage().reference()
         print("bucket \(storageRef.bucket)")
 //        anchor = storageRef.child("Test/\()")
@@ -55,39 +55,31 @@ class ViewController: UIViewController {
     
     func setScene() {
         scene = SCNScene()
+        addButton = UIButton()
+        
+        addButton.backgroundColor = .black
+        addButton.setTitle("Add memory", for: .normal)
+        addButton.setTitleColor(.white, for: .normal)
+        addButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
+        
+        self.view.addSubview(addButton)
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        addButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        addButton.bottomAnchor.constraint(equalTo: label.topAnchor, constant: 0).isActive = true
+        
         sceneView.scene = scene
     }
-    func addTapGestureToSceneView() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didReceiveTapGesture(_:)))
-        sceneView.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    @objc func didReceiveTapGesture(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: sceneView)
-        guard let hitTestResult = sceneView.hitTest(location, types: [.featurePoint, .estimatedHorizontalPlane, .estimatedVerticalPlane, .existingPlane]).first
-            else { return }
-        let anchor = ARAnchor(transform: hitTestResult.worldTransform)
-        sceneView.session.add(anchor: anchor)
-        
-    }
 
-    func addCameraNode() -> SCNNode {
-        cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 10)
-        return cameraNode
-    }
-    
-    
     func generateLabelNode (anchor: ARAnchor) -> SCNNode {
-        let label = SCNText(string: "Hello", extrusionDepth: 0.01)
+        let label = SCNText(string: TextHelper.message, extrusionDepth: 0.0)
         label.font = UIFont (name: "Arial", size: 1)
         label.firstMaterial!.diffuse.contents = UIColor.red
         let labelNode = SCNNode(geometry: label)
-        var x = anchor.transform.columns.3.x + Float.random(in: -0.05...0.05)
-        var y = anchor.transform.columns.3.y + Float.random(in: -0.05...0.05)
-        var z = anchor.transform.columns.3.z - Float.random(in: 0.1...0.5)
-        labelNode.position = SCNVector3(x: x, y: y, z: z)
+//        var x = anchor.transform.columns.3.x + Float.random(in: -0.05...0.05)
+//        var y = anchor.transform.columns.3.y + Float.random(in: -0.05...0.05)
+//        var z = anchor.transform.columns.3.z - Float.random(in: 0.1...0.5)
+        labelNode.position = SCNVector3(x: 0, y: 0, z: 0)
         return labelNode
     }
     
@@ -98,7 +90,7 @@ class ViewController: UIViewController {
         var x = anchor.transform.columns.3.x + Float.random(in: 0...0.5)
         var y = anchor.transform.columns.3.y + Float.random(in: 0...0.05)
         var z = anchor.transform.columns.3.z - Float.random(in: 10...15)
-        boxNode.position = SCNVector3(x: x, y: y, z: z)
+        boxNode.position = SCNVector3(x: 0, y: 0, z: 0)
         return boxNode
     }
     
@@ -107,6 +99,7 @@ class ViewController: UIViewController {
         sceneView.autoenablesDefaultLighting = true
         sceneView.automaticallyUpdatesLighting = true
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -166,7 +159,7 @@ class ViewController: UIViewController {
         for node in childNodes {
             node.removeFromParentNode()
         }
-        addCameraNode()
+//        addCameraNode()
     }
     
     func setLabel(text: String) {
@@ -202,18 +195,68 @@ class ViewController: UIViewController {
         return worldMap
     }
     
+    @objc func buttonTap() {
+        let alert = UIAlertController(title: "Drop a Memory", message: "Enter a message", preferredStyle: .alert)
+        
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextField { (textField) in
+            textField.text = ""
+        }
+        
+        // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+            TextHelper.message = textField!.text!
+            //self.theRest()
+            
+            guard let hitTestResult = self.sceneView.hitTest(self.addButton.frame.origin, types: [.featurePoint, .estimatedHorizontalPlane, .estimatedVerticalPlane, .existingPlane]).first
+                else { return }
+            let anchor = ARAnchor(transform: hitTestResult.worldTransform)
+            self.sceneView.session.add(anchor: anchor)
+        }))
+        
+        let vc = self.view?.window?.rootViewController
+        if vc?.presentedViewController == nil {
+            vc?.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
+    func theRest() {
+        
+        guard let sceneView = self.view as? ARSKView else {
+            return
+        }
+        
+        // Create anchor using the camera's current position
+        if let currentFrame = sceneView.session.currentFrame {
+            
+            // Create a transform with a translation of 0.2 meters in front of the camera
+            var translation = matrix_identity_float4x4
+            translation.columns.3.z = -0.2
+            let transform = simd_mul(currentFrame.camera.transform, translation)
+            
+            // Add a new anchor to the session
+            let anchor = ARAnchor(transform: transform)
+            sceneView.session.add(anchor: anchor)
+        }
+    }
+    
 }
 
 
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        //guard !(anchor is ARPlaneAnchor) else { return }
-        let node = generateLabelNode(anchor: anchor)
-        DispatchQueue.main.async {
-            self.scene.rootNode.addChildNode(node)
-            self.cameraNode.removeFromParentNode()
-            self.addCameraNode()
+        guard !(anchor is ARPlaneAnchor) else { return }
+        if let currentFrame = sceneView.session.currentFrame{
+            let node = generateLabelNode(anchor: anchor)
+            DispatchQueue.main.async {
+                self.scene.rootNode.addChildNode(node)
+                //self.cameraNode.removeFromParentNode()
+                //            self.addCameraNode()
+            }
         }
+
     }
     
 }
