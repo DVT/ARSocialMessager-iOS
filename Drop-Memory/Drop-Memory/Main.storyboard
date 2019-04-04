@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gxN-4y-AZY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BMA-fV-WcU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Messages-->
         <scene sceneID="aEd-dF-Jhl">
             <objects>
-                <viewController id="gxN-4y-AZY" customClass="ViewController" customModule="ARKitWorkingWithWorldMapData" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gxN-4y-AZY" customClass="ViewController" customModule="Drop_Memory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KlG-Ce-ium">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Move camera around to detect planes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dTS-hu-3GP">
-                                <rect key="frame" x="0.0" y="579" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="530" width="375" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="NPa-b8-yQe"/>
@@ -31,7 +32,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.89999997615814209" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofq-C2-cVQ">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="574" width="375" height="44"/>
                                 <items>
                                     <barButtonItem title="Load" id="Lb7-KS-YMZ">
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -72,6 +73,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8yC-7C-We2"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Messages" id="0tw-7F-du6"/>
                     <connections>
                         <outlet property="label" destination="dTS-hu-3GP" id="AbK-Em-W6Q"/>
                         <outlet property="sceneView" destination="nkh-V8-3yl" id="f1s-Ya-hj0"/>
@@ -79,7 +81,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eyl-bd-Jl9" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076" y="132.68365817091455"/>
+            <point key="canvasLocation" x="2015.2" y="132.68365817091455"/>
+        </scene>
+        <!--Recognition-->
+        <scene sceneID="ShX-s5-Lsu">
+            <objects>
+                <viewController id="9cP-PQ-GyQ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W1S-7l-RLl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="2cd-eE-tpo"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Recognition" id="q7C-3U-xTg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p4p-N4-gEM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2015.2" y="824.43778110944538"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="TfM-GT-1jM">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="BMA-fV-WcU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="s6v-RX-90C">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="gxN-4y-AZY" kind="relationship" relationship="viewControllers" id="WJq-or-D3i"/>
+                        <segue destination="9cP-PQ-GyQ" kind="relationship" relationship="viewControllers" id="ree-mP-SP2"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hyl-fg-nl7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="478.11094452773619"/>
         </scene>
     </scenes>
 </document>
