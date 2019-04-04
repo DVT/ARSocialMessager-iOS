@@ -55,7 +55,11 @@ class DetectionViewController: UIViewController, ARSCNViewDelegate {
         if let objectAnchor = anchor as? ARObjectAnchor {
             let plane = SCNPlane(width: CGFloat(objectAnchor.referenceObject.extent.x * 1.8), height: CGFloat(objectAnchor.referenceObject.extent.y * 0.9))
             plane.cornerRadius = plane.width * 0.125
-            let displayScene = SKScene(fileNamed: "product")
+            
+            guard let name = objectAnchor.referenceObject.name else {
+                return nil
+            }
+            let displayScene = SKScene(fileNamed: name)
     
             
             plane.firstMaterial?.diffuse.contents = displayScene
