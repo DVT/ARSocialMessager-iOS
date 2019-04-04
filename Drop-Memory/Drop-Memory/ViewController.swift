@@ -10,6 +10,8 @@
 import UIKit
 import ARKit
 import Firebase
+import CoreLocation
+import FirebaseDatabase
 
 class ViewController: UIViewController {
     
@@ -21,6 +23,10 @@ class ViewController: UIViewController {
     var scene: SCNScene!
     var storageRef: StorageReference!
     var anchor: StorageReference!
+    let locationManager: CLLocationManager = CLLocationManager()
+    var fileName: String = ""
+    
+    let ref = Database.database().reference()
 
     var worldMapURL: URL = {
         do {
@@ -39,7 +45,12 @@ class ViewController: UIViewController {
         setScene()
         storageRef = Storage.storage().reference()
         print("bucket \(storageRef.bucket)")
-        anchor = storageRef.child("Test/anchor")
+//        anchor = storageRef.child("Test/\()")
+        locationManager.requestLocation() //<<
+        //Location Delegates
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingHeading()  //for angle
     }
     
     func setScene() {
@@ -111,6 +122,7 @@ class ViewController: UIViewController {
             }
             
             do {
+                self.anchor = self.storageRef.child(self.fileName) //<<
                 try self.archive(worldMap: worldMap)
                 DispatchQueue.main.async {
                     self.setLabel(text: "World map is saved.")

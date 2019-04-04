@@ -20,6 +20,9 @@
 		F3456AB12252502B001BE01B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3456AB02252502B001BE01B /* ViewController.swift */; };
 		F3456AB62252502C001BE01B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3456AB52252502C001BE01B /* Assets.xcassets */; };
 		F3456AB92252502C001BE01B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3456AB72252502C001BE01B /* LaunchScreen.storyboard */; };
+		F37CB1E9225624020047D216 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F37CB1E6225624010047D216 /* Scene.sks */; };
+		F37CB1EA225624020047D216 /* ViewController+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37CB1E7225624010047D216 /* ViewController+Location.swift */; };
+		F37CB1EB225624020047D216 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37CB1E8225624010047D216 /* Scene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		F3456AB52252502C001BE01B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3456AB82252502C001BE01B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3456ABA2252502C001BE01B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F37CB1E6225624010047D216 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
+		F37CB1E7225624010047D216 /* ViewController+Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Location.swift"; sourceTree = "<group>"; };
+		F37CB1E8225624010047D216 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,9 @@
 		F3456AA92252502B001BE01B /* Drop-Memory */ = {
 			isa = PBXGroup;
 			children = (
+				F37CB1E6225624010047D216 /* Scene.sks */,
+				F37CB1E8225624010047D216 /* Scene.swift */,
+				F37CB1E7225624010047D216 /* ViewController+Location.swift */,
 				170E119D2255F3B70054AEBE /* GoogleService-Info.plist */,
 				F3456AAA2252502B001BE01B /* AppDelegate.swift */,
 				F3456AB02252502B001BE01B /* ViewController.swift */,
@@ -177,6 +186,7 @@
 				170284E122563E7D00563FC7 /* Rabbit.sks in Resources */,
 				F3456AB62252502C001BE01B /* Assets.xcassets in Resources */,
 				C84D4F1C2255E05900AB75F5 /* Main.storyboard in Resources */,
+				F37CB1E9225624020047D216 /* Scene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +226,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Drop-Memory/Pods-Drop-Memory-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -224,6 +235,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,7 +250,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F37CB1EB225624020047D216 /* Scene.swift in Sources */,
 				F3456AB12252502B001BE01B /* ViewController.swift in Sources */,
+				F37CB1EA225624020047D216 /* ViewController+Location.swift in Sources */,
 				170E11A22256047C0054AEBE /* DetectionViewController.swift in Sources */,
 				C84D4F202256407E00AB75F5 /* TextHelper.swift in Sources */,
 				F3456AAB2252502B001BE01B /* AppDelegate.swift in Sources */,
