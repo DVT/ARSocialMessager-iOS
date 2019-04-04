@@ -39,7 +39,7 @@ extension ViewController: CLLocationManagerDelegate {
         if fileName.isEmpty { //<<
             fileName = "Test/\(location.coordinate.latitude)|\(location.coordinate.longitude)" //<<
         } //<<
-//        sendLocationDataToFirebase(coordinate: location.coordinate)
+        sendLocationDataToFirebase(coordinate: location.coordinate)
         
 //        locationManager.stopUpdatingLocation()
     }
@@ -113,8 +113,10 @@ extension ViewController: CLLocationManagerDelegate {
     
     // this gets called when the user enters one of the regions that we have predfinesd
     func handleEvent(forRegion: CLRegion, exit: Bool) {
-        fileName = "" //<<
-        locationManager.requestLocation() //<<
+        if exit {
+            fileName = "" //<<
+            locationManager.requestLocation() //<<
+        }
     }
 }
 

@@ -50,6 +50,9 @@ class DetectionViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+        
+        
+        
         let node = SCNNode()
         
         if let objectAnchor = anchor as? ARObjectAnchor {
