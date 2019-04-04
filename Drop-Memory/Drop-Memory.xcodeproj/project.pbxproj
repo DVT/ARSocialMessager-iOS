@@ -10,6 +10,7 @@
 		170E119E2255F3B70054AEBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 170E119D2255F3B70054AEBE /* GoogleService-Info.plist */; };
 		19318864DD0D7FABEB67112C /* Pods_Drop_Memory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51591122F8290CF73ED8A2AD /* Pods_Drop_Memory.framework */; };
 		C84D4F1C2255E05900AB75F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84D4F1B2255E05900AB75F5 /* Main.storyboard */; };
+		C84D4F202256407E00AB75F5 /* TextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D4F1F2256407E00AB75F5 /* TextHelper.swift */; };
 		F3456AAB2252502B001BE01B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3456AAA2252502B001BE01B /* AppDelegate.swift */; };
 		F3456AB12252502B001BE01B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3456AB02252502B001BE01B /* ViewController.swift */; };
 		F3456AB62252502C001BE01B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3456AB52252502C001BE01B /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 		170E119D2255F3B70054AEBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		51591122F8290CF73ED8A2AD /* Pods_Drop_Memory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drop_Memory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84D4F1B2255E05900AB75F5 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		C84D4F1F2256407E00AB75F5 /* TextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelper.swift; sourceTree = "<group>"; };
 		D6CB0CA45BB3840FC53A9E62 /* Pods-Drop-Memory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drop-Memory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drop-Memory/Pods-Drop-Memory.debug.xcconfig"; sourceTree = "<group>"; };
 		F3456AA72252502B001BE01B /* Drop-Memory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drop-Memory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3456AAA2252502B001BE01B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				F3456AB52252502C001BE01B /* Assets.xcassets */,
 				F3456AB72252502C001BE01B /* LaunchScreen.storyboard */,
 				F3456ABA2252502C001BE01B /* Info.plist */,
+				C84D4F1F2256407E00AB75F5 /* TextHelper.swift */,
 			);
 			path = "Drop-Memory";
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3456AB12252502B001BE01B /* ViewController.swift in Sources */,
+				C84D4F202256407E00AB75F5 /* TextHelper.swift in Sources */,
 				F3456AAB2252502B001BE01B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
