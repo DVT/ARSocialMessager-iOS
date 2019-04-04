@@ -19,7 +19,7 @@ import FirebaseDatabase
 import Foundation
 
 extension ViewController: CLLocationManagerDelegate {
-
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationManager.startUpdatingLocation()
     }
@@ -36,11 +36,12 @@ extension ViewController: CLLocationManagerDelegate {
             return
         }
         print("Location: \(location)")
+        if fileName.isEmpty { //<<
+            fileName = "Test/\(location.coordinate.latitude)|\(location.coordinate.longitude)" //<<
+        } //<<
+//        sendLocationDataToFirebase(coordinate: location.coordinate)
         
-        let coordinates = location.coordinate
-        sendLocationDataToFirebase(coordinate: location.coordinate)
-        
-        locationManager.stopUpdatingLocation()
+//        locationManager.stopUpdatingLocation()
     }
     
     func sendLocationDataToFirebase(coordinate: CLLocationCoordinate2D) {
@@ -112,7 +113,8 @@ extension ViewController: CLLocationManagerDelegate {
     
     // this gets called when the user enters one of the regions that we have predfinesd
     func handleEvent(forRegion: CLRegion, exit: Bool) {
-        
+        fileName = "" //<<
+        locationManager.requestLocation() //<<
     }
 }
 

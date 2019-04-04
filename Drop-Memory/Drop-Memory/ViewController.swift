@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     var storageRef: StorageReference!
     var anchor: StorageReference!
     let locationManager: CLLocationManager = CLLocationManager()
+    var fileName: String = ""
     
     let ref = Database.database().reference()
 
@@ -44,11 +45,12 @@ class ViewController: UIViewController {
         scene.rootNode.addChildNode(addCameraNode())
         storageRef = Storage.storage().reference()
         print("bucket \(storageRef.bucket)")
-        anchor = storageRef.child("Test/anchor")
+//        anchor = storageRef.child("Test/\()")
+        locationManager.requestLocation() //<<
         //Location Delegates
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingHeading()
+//        locationManager.startUpdatingHeading()  //for angle
     }
     
     func setScene() {
@@ -127,6 +129,7 @@ class ViewController: UIViewController {
             }
             
             do {
+                self.anchor = self.storageRef.child(self.fileName) //<<
                 try self.archive(worldMap: worldMap)
                 DispatchQueue.main.async {
                     self.setLabel(text: "World map is saved.")
