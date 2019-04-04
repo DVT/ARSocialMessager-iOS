@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     let locationManager: CLLocationManager = CLLocationManager()
     var fileName: String = ""
     
-    let ref = Database.database().reference()
+    var ref: DatabaseReference!
 
     var worldMapURL: URL = {
         do {
@@ -44,13 +44,16 @@ class ViewController: UIViewController {
         //addTapGestureToSceneView()
         setScene()
         storageRef = Storage.storage().reference()
+        ref = Database.database().reference()
         print("bucket \(storageRef.bucket)")
 //        anchor = storageRef.child("Test/\()")
-        locationManager.requestLocation() //<<
+        //<<
         //Location Delegates
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
 //        locationManager.startUpdatingHeading()  //for angle
+       // locationManager.requestLocation()
+        
     }
     
     func setScene() {
@@ -72,15 +75,30 @@ class ViewController: UIViewController {
     }
 
     func generateLabelNode (anchor: ARAnchor) -> SCNNode {
-        let label = SCNText(string: TextHelper.message, extrusionDepth: 0.0)
-        label.font = UIFont (name: "Arial", size: 1)
-        label.firstMaterial!.diffuse.contents = UIColor.red
-        let labelNode = SCNNode(geometry: label)
-//        var x = anchor.transform.columns.3.x + Float.random(in: -0.05...0.05)
-//        var y = anchor.transform.columns.3.y + Float.random(in: -0.05...0.05)
-//        var z = anchor.transform.columns.3.z - Float.random(in: 0.1...0.5)
-        labelNode.position = SCNVector3(x: 0, y: 0, z: 0)
-        return labelNode
+        
+        let skScene = SKScene(size: CGSize(width: 50, height: 50))
+        skScene.backgroundColor = UIColor.clear
+        
+        let rectangle = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 50, height: 50), cornerRadius: 5)
+        rectangle.fillColor = #colorLiteral(red: 0.807843148708344, green: 0.0274509806185961, blue: 0.333333343267441, alpha: 1.0)
+        rectangle.strokeColor = #colorLiteral(red: 0.439215689897537, green: 0.0117647061124444, blue: 0.192156866192818, alpha: 1.0)
+        rectangle.lineWidth = 2
+        rectangle.alpha = 0.8
+        
+        let labelNode = SKLabelNode(text: TextHelper.message)
+        labelNode.fontSize = 16
+        labelNode.color = .black
+        labelNode.position = CGPoint(x: rectangle.frame.midX, y: rectangle.frame.midY)
+        skScene.addChild(rectangle)
+        skScene.addChild(labelNode)
+        
+        let plane = SCNPlane(width: 0.2, height: 0.2)
+        plane.firstMaterial?.isDoubleSided = true
+        plane.firstMaterial?.diffuse.contents = skScene
+        plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+        let node = SCNNode(geometry: plane)
+        node.position = SCNVector3(x: 0, y: 0, z: -1)
+        return node
     }
     
     func generateBoxNode (anchor: ARAnchor) -> SCNNode {
