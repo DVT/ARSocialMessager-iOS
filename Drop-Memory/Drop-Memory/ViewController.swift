@@ -69,7 +69,7 @@ class ViewController: UIViewController {
     
     
     func generateLabelNode (anchor: ARAnchor) -> SCNNode {
-        let label = SCNText(string: "Hello", extrusionDepth: 0.0)
+        let label = SCNText(string: "Hello", extrusionDepth: 0.01)
         label.font = UIFont (name: "Arial", size: 1)
         label.firstMaterial!.diffuse.contents = UIColor.red
         let labelNode = SCNNode(geometry: label)
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         var boxNode = SCNNode(geometry: box)
         var x = anchor.transform.columns.3.x + Float.random(in: 0...0.5)
         var y = anchor.transform.columns.3.y + Float.random(in: 0...0.05)
-        var z = anchor.transform.columns.3.z - Float.random(in: 0.5...1)
+        var z = anchor.transform.columns.3.z - Float.random(in: 10...15)
         boxNode.position = SCNVector3(x: x, y: y, z: z)
         return boxNode
     }
@@ -130,7 +130,6 @@ class ViewController: UIViewController {
     
     @IBAction func loadBarButtonItemDidTouch(_ sender: UIBarButtonItem) {
         let _ = retrieveWorldMapData(from: worldMapURL)
-        
     }
     
     func loadStuff(worldMap: ARWorldMap) {
@@ -196,7 +195,7 @@ class ViewController: UIViewController {
 
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard !(anchor is ARPlaneAnchor) else { return }
+        //guard !(anchor is ARPlaneAnchor) else { return }
         let node = generateLabelNode(anchor: anchor)
         DispatchQueue.main.async {
             self.scene.rootNode.addChildNode(node)
