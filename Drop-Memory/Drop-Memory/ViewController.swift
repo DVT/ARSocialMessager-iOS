@@ -10,6 +10,8 @@
 import UIKit
 import ARKit
 import Firebase
+import CoreLocation
+import FirebaseDatabase
 
 class ViewController: UIViewController {
     
@@ -20,6 +22,9 @@ class ViewController: UIViewController {
     var cameraNode: SCNNode!
     var storageRef: StorageReference!
     var anchor: StorageReference!
+    let locationManager: CLLocationManager = CLLocationManager()
+    
+    let ref = Database.database().reference()
 
     var worldMapURL: URL = {
         do {
@@ -40,6 +45,10 @@ class ViewController: UIViewController {
         storageRef = Storage.storage().reference()
         print("bucket \(storageRef.bucket)")
         anchor = storageRef.child("Test/anchor")
+        //Location Delegates
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingHeading()
     }
     
     func setScene() {
