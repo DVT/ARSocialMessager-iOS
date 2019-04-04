@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		170284DF225632FD00563FC7 /* Panda2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 170284DE225632FD00563FC7 /* Panda2.sks */; };
+		170284E122563E7D00563FC7 /* Rabbit.sks in Resources */ = {isa = PBXBuildFile; fileRef = 170284E022563E7D00563FC7 /* Rabbit.sks */; };
 		170E119E2255F3B70054AEBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 170E119D2255F3B70054AEBE /* GoogleService-Info.plist */; };
+		170E11A22256047C0054AEBE /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E11A12256047C0054AEBE /* DetectionViewController.swift */; };
+		170E11AA225607F70054AEBE /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 170E11A9225607F70054AEBE /* art.scnassets */; };
+		170E11AC225609520054AEBE /* noodles.sks in Resources */ = {isa = PBXBuildFile; fileRef = 170E11AB225609520054AEBE /* noodles.sks */; };
 		19318864DD0D7FABEB67112C /* Pods_Drop_Memory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51591122F8290CF73ED8A2AD /* Pods_Drop_Memory.framework */; };
 		C84D4F1C2255E05900AB75F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84D4F1B2255E05900AB75F5 /* Main.storyboard */; };
 		C84D4F202256407E00AB75F5 /* TextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D4F1F2256407E00AB75F5 /* TextHelper.swift */; };
@@ -19,7 +24,12 @@
 
 /* Begin PBXFileReference section */
 		098DC8D35B49B8EE227DE92D /* Pods-Drop-Memory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drop-Memory.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drop-Memory/Pods-Drop-Memory.release.xcconfig"; sourceTree = "<group>"; };
+		170284DE225632FD00563FC7 /* Panda2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Panda2.sks; sourceTree = "<group>"; };
+		170284E022563E7D00563FC7 /* Rabbit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rabbit.sks; sourceTree = "<group>"; };
 		170E119D2255F3B70054AEBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		170E11A12256047C0054AEBE /* DetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionViewController.swift; sourceTree = "<group>"; };
+		170E11A9225607F70054AEBE /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		170E11AB225609520054AEBE /* noodles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = noodles.sks; path = ../../../../Downloads/AR/AR/noodles.sks; sourceTree = "<group>"; };
 		51591122F8290CF73ED8A2AD /* Pods_Drop_Memory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drop_Memory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84D4F1B2255E05900AB75F5 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C84D4F1F2256407E00AB75F5 /* TextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelper.swift; sourceTree = "<group>"; };
@@ -88,7 +98,12 @@
 				C84D4F1B2255E05900AB75F5 /* Main.storyboard */,
 				F3456AB52252502C001BE01B /* Assets.xcassets */,
 				F3456AB72252502C001BE01B /* LaunchScreen.storyboard */,
+				170E11AB225609520054AEBE /* noodles.sks */,
 				F3456ABA2252502C001BE01B /* Info.plist */,
+				170E11A12256047C0054AEBE /* DetectionViewController.swift */,
+				170E11A9225607F70054AEBE /* art.scnassets */,
+				170284DE225632FD00563FC7 /* Panda2.sks */,
+				170284E022563E7D00563FC7 /* Rabbit.sks */,
 				C84D4F1F2256407E00AB75F5 /* TextHelper.swift */,
 			);
 			path = "Drop-Memory";
@@ -154,8 +169,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				170284DF225632FD00563FC7 /* Panda2.sks in Resources */,
 				F3456AB92252502C001BE01B /* LaunchScreen.storyboard in Resources */,
+				170E11AC225609520054AEBE /* noodles.sks in Resources */,
 				170E119E2255F3B70054AEBE /* GoogleService-Info.plist in Resources */,
+				170E11AA225607F70054AEBE /* art.scnassets in Resources */,
+				170284E122563E7D00563FC7 /* Rabbit.sks in Resources */,
 				F3456AB62252502C001BE01B /* Assets.xcassets in Resources */,
 				C84D4F1C2255E05900AB75F5 /* Main.storyboard in Resources */,
 			);
@@ -220,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3456AB12252502B001BE01B /* ViewController.swift in Sources */,
+				170E11A22256047C0054AEBE /* DetectionViewController.swift in Sources */,
 				C84D4F202256407E00AB75F5 /* TextHelper.swift in Sources */,
 				F3456AAB2252502B001BE01B /* AppDelegate.swift in Sources */,
 			);

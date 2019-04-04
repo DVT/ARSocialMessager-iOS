@@ -86,14 +86,23 @@
         <!--Recognition-->
         <scene sceneID="ShX-s5-Lsu">
             <objects>
-                <viewController id="9cP-PQ-GyQ" sceneMemberID="viewController">
+                <viewController id="9cP-PQ-GyQ" customClass="DetectionViewController" customModule="Drop_Memory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W1S-7l-RLl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WUw-zF-WIf">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </arscnView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="2cd-eE-tpo"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Recognition" id="q7C-3U-xTg"/>
+                    <connections>
+                        <outlet property="sceneView" destination="WUw-zF-WIf" id="lOo-n3-mVT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p4p-N4-gEM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -105,6 +114,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="BMA-fV-WcU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="s6v-RX-90C">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

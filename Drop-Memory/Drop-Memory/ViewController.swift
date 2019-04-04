@@ -89,6 +89,7 @@ class ViewController: UIViewController {
         sceneView.automaticallyUpdatesLighting = true
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         resetTrackingConfiguration()
