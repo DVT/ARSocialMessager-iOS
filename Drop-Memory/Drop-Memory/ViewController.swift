@@ -13,21 +13,43 @@ import ARKit
 class ViewController: UIViewController, ARSKViewDelegate {
     
     @IBOutlet var sceneView: ARSKView!
+    var scene: SKScene!
+    var cameraNode: SCNNode!
+    
+    var worldMapURL: URL = {
+        do {
+            return try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appendingPathComponent("worldMapURL")
+        } catch {
+            fatalError("Error getting world map URL from document directory.")
+        }
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Set the view's delegate
         sceneView.delegate = self
+        addTapGestureToSceneView()
+        setScene()
+        scene.rootNode.addChildNode(addCameraNode())
+    }
+    
+    func setScene() {
+        scene = SKScene()
+        sceneView = scene
+    }
+    
+    func addTapGestureToSceneView() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didReceiveTapGesture(_:)))
+        sceneView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func didReceiveTapGesture(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: sceneView)
+        guard let hitTestResult = sceneView.hitTest(location, types: [.featurePoint, .estimatedHorizontalPlane, .estimatedVerticalPlane, .existingPlane]).first
+            else { return }
+        let anchor = ARAnchor(transform: hitTestResult.worldTransform)
+        sceneView.session.add(anchor: anchor)
         
-        // Show statistics such as fps and node count
-        sceneView.showsFPS = true
-        sceneView.showsNodeCount = true
-        
-        // Load the SKScene from 'Scene.sks'
-        if let scene = SKScene(fileNamed: "Scene") {
-            sceneView.presentScene(scene)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,4 +93,6 @@ class ViewController: UIViewController, ARSKViewDelegate {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
+    
+
 }

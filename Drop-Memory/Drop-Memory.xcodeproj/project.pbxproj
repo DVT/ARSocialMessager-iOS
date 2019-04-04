@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		19318864DD0D7FABEB67112C /* Pods_Drop_Memory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51591122F8290CF73ED8A2AD /* Pods_Drop_Memory.framework */; };
 		F3456AAB2252502B001BE01B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3456AAA2252502B001BE01B /* AppDelegate.swift */; };
-		F3456AAD2252502B001BE01B /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F3456AAC2252502B001BE01B /* Scene.sks */; };
-		F3456AAF2252502B001BE01B /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3456AAE2252502B001BE01B /* Scene.swift */; };
 		F3456AB12252502B001BE01B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3456AB02252502B001BE01B /* ViewController.swift */; };
 		F3456AB42252502B001BE01B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3456AB22252502B001BE01B /* Main.storyboard */; };
 		F3456AB62252502C001BE01B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3456AB52252502C001BE01B /* Assets.xcassets */; };
@@ -23,8 +21,6 @@
 		D6CB0CA45BB3840FC53A9E62 /* Pods-Drop-Memory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drop-Memory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drop-Memory/Pods-Drop-Memory.debug.xcconfig"; sourceTree = "<group>"; };
 		F3456AA72252502B001BE01B /* Drop-Memory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drop-Memory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3456AAA2252502B001BE01B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F3456AAC2252502B001BE01B /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
-		F3456AAE2252502B001BE01B /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F3456AB02252502B001BE01B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F3456AB32252502B001BE01B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F3456AB52252502C001BE01B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,8 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				F3456AAA2252502B001BE01B /* AppDelegate.swift */,
-				F3456AAC2252502B001BE01B /* Scene.sks */,
-				F3456AAE2252502B001BE01B /* Scene.swift */,
 				F3456AB02252502B001BE01B /* ViewController.swift */,
 				F3456AB22252502B001BE01B /* Main.storyboard */,
 				F3456AB52252502C001BE01B /* Assets.xcassets */,
@@ -154,7 +148,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3456AAD2252502B001BE01B /* Scene.sks in Resources */,
 				F3456AB92252502C001BE01B /* LaunchScreen.storyboard in Resources */,
 				F3456AB62252502C001BE01B /* Assets.xcassets in Resources */,
 				F3456AB42252502B001BE01B /* Main.storyboard in Resources */,
@@ -220,7 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3456AB12252502B001BE01B /* ViewController.swift in Sources */,
-				F3456AAF2252502B001BE01B /* Scene.swift in Sources */,
 				F3456AAB2252502B001BE01B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
