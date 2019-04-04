@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		19318864DD0D7FABEB67112C /* Pods_Drop_Memory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51591122F8290CF73ED8A2AD /* Pods_Drop_Memory.framework */; };
+		C84D4F1C2255E05900AB75F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84D4F1B2255E05900AB75F5 /* Main.storyboard */; };
+		C84D4F1E2255E0DF00AB75F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C84D4F1D2255E0DF00AB75F5 /* GoogleService-Info.plist */; };
 		F3456AAB2252502B001BE01B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3456AAA2252502B001BE01B /* AppDelegate.swift */; };
 		F3456AB12252502B001BE01B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3456AB02252502B001BE01B /* ViewController.swift */; };
-		F3456AB42252502B001BE01B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3456AB22252502B001BE01B /* Main.storyboard */; };
 		F3456AB62252502C001BE01B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3456AB52252502C001BE01B /* Assets.xcassets */; };
 		F3456AB92252502C001BE01B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3456AB72252502C001BE01B /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -18,11 +19,12 @@
 /* Begin PBXFileReference section */
 		098DC8D35B49B8EE227DE92D /* Pods-Drop-Memory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drop-Memory.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drop-Memory/Pods-Drop-Memory.release.xcconfig"; sourceTree = "<group>"; };
 		51591122F8290CF73ED8A2AD /* Pods_Drop_Memory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drop_Memory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C84D4F1B2255E05900AB75F5 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		C84D4F1D2255E0DF00AB75F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D6CB0CA45BB3840FC53A9E62 /* Pods-Drop-Memory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drop-Memory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drop-Memory/Pods-Drop-Memory.debug.xcconfig"; sourceTree = "<group>"; };
 		F3456AA72252502B001BE01B /* Drop-Memory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drop-Memory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3456AAA2252502B001BE01B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3456AB02252502B001BE01B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F3456AB32252502B001BE01B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F3456AB52252502C001BE01B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3456AB82252502C001BE01B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3456ABA2252502C001BE01B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -80,10 +82,11 @@
 			children = (
 				F3456AAA2252502B001BE01B /* AppDelegate.swift */,
 				F3456AB02252502B001BE01B /* ViewController.swift */,
-				F3456AB22252502B001BE01B /* Main.storyboard */,
+				C84D4F1B2255E05900AB75F5 /* Main.storyboard */,
 				F3456AB52252502C001BE01B /* Assets.xcassets */,
 				F3456AB72252502C001BE01B /* LaunchScreen.storyboard */,
 				F3456ABA2252502C001BE01B /* Info.plist */,
+				C84D4F1D2255E0DF00AB75F5 /* GoogleService-Info.plist */,
 			);
 			path = "Drop-Memory";
 			sourceTree = "<group>";
@@ -149,8 +152,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3456AB92252502C001BE01B /* LaunchScreen.storyboard in Resources */,
+				C84D4F1E2255E0DF00AB75F5 /* GoogleService-Info.plist in Resources */,
 				F3456AB62252502C001BE01B /* Assets.xcassets in Resources */,
-				F3456AB42252502B001BE01B /* Main.storyboard in Resources */,
+				C84D4F1C2255E05900AB75F5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,14 +224,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F3456AB22252502B001BE01B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3456AB32252502B001BE01B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F3456AB72252502C001BE01B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -361,7 +357,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FA8D45S82T;
+				DEVELOPMENT_TEAM = GLK7J5PP82;
 				INFOPLIST_FILE = "Drop-Memory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -380,7 +376,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FA8D45S82T;
+				DEVELOPMENT_TEAM = GLK7J5PP82;
 				INFOPLIST_FILE = "Drop-Memory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
