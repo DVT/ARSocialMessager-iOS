@@ -46,13 +46,13 @@ class ViewController: UIViewController {
         storageRef = Storage.storage().reference()
         ref = Database.database().reference()
         print("bucket \(storageRef.bucket)")
-//        anchor = storageRef.child("Test/\()")
+      
         //<<
         //Location Delegates
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
 //        locationManager.startUpdatingHeading()  //for angle
-       // locationManager.requestLocation()
+        //locationManager.requestLocation()
         
     }
     
@@ -96,8 +96,24 @@ class ViewController: UIViewController {
         plane.firstMaterial?.isDoubleSided = true
         plane.firstMaterial?.diffuse.contents = skScene
         plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+        //let node = SCNNode(geometry: plane)
+        
+        //adding plane to node to add to scene
         let node = SCNNode(geometry: plane)
-        node.position = SCNVector3(x: 0, y: 0, z: -1)
+        let camera = sceneView.session.currentFrame?.camera
+        let camX = camera?.transform.translation.x ?? 0.0
+        let camY = camera?.transform.translation.y ?? 0.0
+        let camZ = camera?.transform.translation.z ?? 0.0
+        
+        var x: Float = 0.0
+        var y: Float = 0.0
+        var z: Float = 0.0
+        
+        x = anchor.transform.translation.x
+        y = anchor.transform.translation.y
+        z = anchor.transform.translation.z - camZ
+        
+        node.position = SCNVector3(x: x, y: y, z: z)
         return node
     }
     
@@ -185,18 +201,25 @@ class ViewController: UIViewController {
     }
     
     func archive(worldMap: ARWorldMap) throws {
+        anchor = storageRef.child("\(fileName)")
         let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
         anchor.putData(data)
         //try data.write(to: self.worldMapURL, options: [.atomic])
     }
     
     func retrieveWorldMapData(from url: URL) -> Data? {
+        anchor = storageRef.child("\(fileName)")
         do {
             anchor.getData(maxSize: 2 * 1024 * 1024) { data, error in
-                guard let unarchievedObject = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data!),
+                  print("world map download error: \(error)")
+                  print("world map download error: \(data)")
+                guard let data = data, let unarchievedObject = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data),
                     let worldMap: ARWorldMap = unarchievedObject else { return }
                 self.loadStuff(worldMap: worldMap)
+                 print("world map download error: \(error)")
             }
+           
+            
             
             //let data =  try Data(contentsOf: self.worldMapURL)
             
