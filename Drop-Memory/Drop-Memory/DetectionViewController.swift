@@ -51,12 +51,11 @@ class DetectionViewController: UIViewController, ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         
-        
-        
+  
         let node = SCNNode()
         
         if let objectAnchor = anchor as? ARObjectAnchor {
-            let plane = SCNPlane(width: CGFloat(objectAnchor.referenceObject.extent.x * 1.8), height: CGFloat(objectAnchor.referenceObject.extent.y * 0.9))
+            let plane = SCNPlane(width: CGFloat(objectAnchor.referenceObject.extent.x * 2), height: CGFloat(objectAnchor.referenceObject.extent.y * 1.2))
             plane.cornerRadius = plane.width * 0.125
             
             guard let name = objectAnchor.referenceObject.name else {
@@ -64,10 +63,9 @@ class DetectionViewController: UIViewController, ARSCNViewDelegate {
             }
             let displayScene = SKScene(fileNamed: name)
     
-            
             plane.firstMaterial?.diffuse.contents = displayScene
             plane.firstMaterial?.isDoubleSided = true
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(0.5, -0.5, 0.5), 0, 1, 0)
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
             
             let planeNode = SCNNode(geometry: plane)
             planeNode.position = SCNVector3Make(objectAnchor.referenceObject.center.x, objectAnchor.referenceObject.center.y + 0.15, objectAnchor.referenceObject.center.z)
