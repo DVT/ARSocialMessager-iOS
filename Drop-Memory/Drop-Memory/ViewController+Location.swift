@@ -32,13 +32,13 @@ extension ViewController: CLLocationManagerDelegate {
             //latitude
             var lat = String(location.coordinate.latitude)
             let dotIndexLat = lat.firstIndex(of: ".")!
-            let latWithDecimals = lat.index(dotIndexLat, offsetBy: 3)
+            let latWithDecimals = lat.index(dotIndexLat, offsetBy: 2)
             let latWithDecimalsString = lat[...latWithDecimals]
             
             //longitued
             var log = String(location.coordinate.longitude)
             let dotIndexLog = log.firstIndex(of: ".")!
-            let logWithDecimals = log.index(dotIndexLog, offsetBy: 4)
+            let logWithDecimals = log.index(dotIndexLog, offsetBy: 2)
             let logWithDecimalsString = log[...logWithDecimals]
             
             fileName = "Test/\(latWithDecimalsString)|\(logWithDecimalsString)" //<<

@@ -13,6 +13,8 @@
 		170E11A22256047C0054AEBE /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E11A12256047C0054AEBE /* DetectionViewController.swift */; };
 		170E11AA225607F70054AEBE /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 170E11A9225607F70054AEBE /* art.scnassets */; };
 		19318864DD0D7FABEB67112C /* Pods_Drop_Memory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51591122F8290CF73ED8A2AD /* Pods_Drop_Memory.framework */; };
+		C80FE42122577B0F0068001F /* MessageAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FE42022577B0F0068001F /* MessageAnchor.swift */; };
+		C80FE423225784C10068001F /* AnchorTextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FE422225784C10068001F /* AnchorTextModel.swift */; };
 		C84D4F1C2255E05900AB75F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84D4F1B2255E05900AB75F5 /* Main.storyboard */; };
 		C84D4F202256407E00AB75F5 /* TextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D4F1F2256407E00AB75F5 /* TextHelper.swift */; };
 		C84D4F222256535B00AB75F5 /* noodles.sks in Resources */ = {isa = PBXBuildFile; fileRef = C84D4F212256535B00AB75F5 /* noodles.sks */; };
@@ -33,6 +35,8 @@
 		170E11A12256047C0054AEBE /* DetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionViewController.swift; sourceTree = "<group>"; };
 		170E11A9225607F70054AEBE /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		51591122F8290CF73ED8A2AD /* Pods_Drop_Memory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drop_Memory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C80FE42022577B0F0068001F /* MessageAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAnchor.swift; sourceTree = "<group>"; };
+		C80FE422225784C10068001F /* AnchorTextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchorTextModel.swift; sourceTree = "<group>"; };
 		C84D4F1B2255E05900AB75F5 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C84D4F1F2256407E00AB75F5 /* TextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelper.swift; sourceTree = "<group>"; };
 		C84D4F212256535B00AB75F5 /* noodles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = noodles.sks; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 				170284E022563E7D00563FC7 /* Rabbit.sks */,
 				C84D4F1F2256407E00AB75F5 /* TextHelper.swift */,
 				C84D4F212256535B00AB75F5 /* noodles.sks */,
+				C80FE42022577B0F0068001F /* MessageAnchor.swift */,
+				C80FE422225784C10068001F /* AnchorTextModel.swift */,
 			);
 			path = "Drop-Memory";
 			sourceTree = "<group>";
@@ -251,9 +257,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F37CB1EB225624020047D216 /* Scene.swift in Sources */,
+				C80FE423225784C10068001F /* AnchorTextModel.swift in Sources */,
 				F3456AB12252502B001BE01B /* ViewController.swift in Sources */,
 				F37CB1EA225624020047D216 /* ViewController+Location.swift in Sources */,
 				170E11A22256047C0054AEBE /* DetectionViewController.swift in Sources */,
+				C80FE42122577B0F0068001F /* MessageAnchor.swift in Sources */,
 				C84D4F202256407E00AB75F5 /* TextHelper.swift in Sources */,
 				F3456AAB2252502B001BE01B /* AppDelegate.swift in Sources */,
 			);
