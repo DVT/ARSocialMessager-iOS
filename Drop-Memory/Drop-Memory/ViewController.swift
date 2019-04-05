@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         }
     }()
     
-    var anchorsArray: [AnchorTextModel] = []
+    var anchorsArray: [MessageAnchor] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,8 +109,8 @@ class ViewController: UIViewController {
 
         var labelNode = SKLabelNode(text: TextHelper.message)
         for myAnchor in anchorsArray {
-            if myAnchor.anchorID == anchor.identifier.uuidString {
-                 labelNode = SKLabelNode(text: myAnchor.text)
+            if myAnchor.ID == anchor.identifier{
+                 labelNode = SKLabelNode(text: myAnchor.message)
             }
         }
         
@@ -251,27 +251,41 @@ class ViewController: UIViewController {
                 
                 self.ref.child(self.fileName.replacingOccurrences(of: ".", with: "_"))
                     .observeSingleEvent(of: DataEventType.value) { (snapshot) in
-                        let model = snapshot.value as? [String : Any] ?? [:]
-                    print("htt")
-                        
-                      print(model[model.keys.first!])
-                        
                         
                         snapshot.children.forEach({ (child) in
-                            print("hello")
-                            print(child)
+                            let dataSnap = child as! DataSnapshot
+                            let c = dataSnap.value as! [String : String]
+                            print("the object is this achoID \(c["anchorID"]!)")
+                            print(c["text"])
                             
-                            if let c = child as? [String : String] {
-                                print(c)
-                            } else {
-                                print("fail")
-                            }
+                            
+                            self.anchorsArray.append(MessageAnchor(id: UUID(uuidString:c["anchorID"]!)! , message:c["text"]!))
+                            
+//                            print("hello \(dataSnap)")
+//                            print(child)
+//
+//                            if let c = child as? [String : String] {
+//                                print(c)
+//                            } else {
+//                                print("fail")
+//                            }
                         })
                         
-//                        let anchorModel = AnchorTextModel(fileName: model["fileName"], anchorID: model["anchorID"], text: model["text"])
-//                        print("the model: ")
-//                        print(anchorModel)
-//                        self.anchorsArray.append(anchorModel)
+                        //let model = snapshot.value as? [String : Any] ?? [:]
+                        
+//                        let snapshotKey = snapshot.key
+//                        let children: DataSnapshot = snapshot.childSnapshot(forPath: snapshotKey)
+
+//                        let anythignArray = self.searchJSON(json: model, searchString: "")
+//
+//                        var i = 0
+//                        while(i < anythignArray.count) {
+//
+//                            //anchorsArray.append(MessageAnchor(id: , message:))
+//
+//                            i += 3
+//                        }
+//
                         
                         if self.anchorsArray.count == snapshot.childrenCount {
                             print("equal!!!")
@@ -359,6 +373,29 @@ class ViewController: UIViewController {
             sceneView.session.add(anchor: anchor)
         }
     }
+    
+    
+    
+    
+    func searchJSON(json: [String:Any], searchString: String) -> [String] {
+        var array: [String] = []
+        let jsonKeys = json.keys
+        for i in 0..<jsonKeys.count {
+            let level1 = json[jsonKeys.index(jsonKeys.startIndex, offsetBy: i)]
+            if let level2 = json[level1.key] as? [String:Any] {
+                array.append(contentsOf: searchJSON(json: level2, searchString: searchString))
+            }
+            else if let level2 = json[level1.key] as? [[String:Any]] {
+                for i in 0..<level2.count {
+                    array.append(contentsOf: searchJSON(json: level2[i], searchString: searchString))
+                }
+            } else if let value = json[level1.key] as? String {
+                array.append(value)
+            }
+        }
+        return array
+    }
+    
 }
 
 
