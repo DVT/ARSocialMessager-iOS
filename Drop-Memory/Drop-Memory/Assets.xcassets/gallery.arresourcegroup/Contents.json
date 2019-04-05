@@ -5,13 +5,22 @@
   },
   "resources" : [
     {
+      "filename" : "IOSGrads.arobject"
+    },
+    {
+      "filename" : "JavaGrads.arobject"
+    },
+    {
+      "filename" : "netGrads.arobject"
+    },
+    {
       "filename" : "noodles.arobject"
     },
     {
-      "filename" : "Panda2.arobject"
+      "filename" : "UxGrads.arobject"
     },
     {
-      "filename" : "Rabbit.arobject"
+      "filename" : "WebGrads.arobject"
     }
   ]
 }
