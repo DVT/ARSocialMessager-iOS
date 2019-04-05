@@ -85,21 +85,30 @@ class ViewController: UIViewController {
         rectangle.lineWidth = 2
         rectangle.alpha = 0.8
         
-        let labelNode = SKLabelNode(text: TextHelper.message)
-        labelNode.fontSize = 16
-        labelNode.color = .black
-        labelNode.position = CGPoint(x: rectangle.frame.midX, y: rectangle.frame.midY)
-        skScene.addChild(rectangle)
-        skScene.addChild(labelNode)
         
-        let plane = SCNPlane(width: 0.2, height: 0.2)
-        plane.firstMaterial?.isDoubleSided = true
-        plane.firstMaterial?.diffuse.contents = skScene
-        plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+        //adding plane to node to add to scene
+        let label = SCNText(string: TextHelper.message, extrusionDepth: 0.1)
+        label.font = UIFont (name: "Arial", size: 1)
+        label.firstMaterial!.diffuse.contents = UIColor.red
+        let node = SCNNode(geometry: label)
+        
+        
+        
+//        let labelNode = SKLabelNode(text: TextHelper.message)
+//        labelNode.fontSize = 16
+//        labelNode.color = .black
+//        labelNode.position = CGPoint(x: rectangle.frame.midX, y: rectangle.frame.midY)
+//        skScene.addChild(rectangle)
+//        skScene.addChild(labelNode)
+        
+//        let plane = SCNPlane(width: 0.2, height: 0.2)
+//        plane.firstMaterial?.isDoubleSided = true
+//        plane.firstMaterial?.diffuse.contents = skScene
+//        plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
         //let node = SCNNode(geometry: plane)
         
         //adding plane to node to add to scene
-        let node = SCNNode(geometry: plane)
+        //let node = SCNNode(geometry: plane)
         let camera = sceneView.session.currentFrame?.camera
         let camX = camera?.transform.translation.x ?? 0.0
         let camY = camera?.transform.translation.y ?? 0.0

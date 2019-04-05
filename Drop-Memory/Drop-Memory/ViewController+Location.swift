@@ -32,7 +32,7 @@ extension ViewController: CLLocationManagerDelegate {
             //latitude
             var lat = String(location.coordinate.latitude)
             let dotIndexLat = lat.firstIndex(of: ".")!
-            let latWithDecimals = lat.index(dotIndexLat, offsetBy: 4)
+            let latWithDecimals = lat.index(dotIndexLat, offsetBy: 3)
             let latWithDecimalsString = lat[...latWithDecimals]
             
             //longitued
