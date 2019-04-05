@@ -37,8 +37,22 @@ class ViewController: UIViewController {
         }
     }()
     
+    var anchorsArray: [MessageAnchor] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//
+//        let uuid1 = UUID(uuidString: "59B87377-D14B-44AD-95E5-1BD58D28D9D3")
+//        let uuid2 = UUID(uuidString: "73C45F81-F5AB-46BE-B4FC-E22FF26AE2C4")
+//        let uuid3 = UUID(uuidString: "90208CD9-DBB4-4C07-AB4E-7D27D5FF5DF7")
+//        let uuid4 = UUID(uuidString: "7F1F12CF-F2C0-40D5-9B49-14625A13E46B")
+//
+//        anchorsArray.append(MessageAnchor(id: uuid1!, message: "1"))
+//        anchorsArray.append(MessageAnchor(id: uuid2!, message: "2"))
+//        anchorsArray.append(MessageAnchor(id: uuid3!, message: "3"))
+//        anchorsArray.append(MessageAnchor(id: uuid4!, message: "4"))
+//
+        
         sceneView.delegate = self
         configureLighting()
         //addTapGestureToSceneView()
@@ -46,13 +60,13 @@ class ViewController: UIViewController {
         storageRef = Storage.storage().reference()
         ref = Database.database().reference()
         print("bucket \(storageRef.bucket)")
-//        anchor = storageRef.child("Test/\()")
+      
         //<<
         //Location Delegates
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
 //        locationManager.startUpdatingHeading()  //for angle
-       // locationManager.requestLocation()
+        //locationManager.requestLocation()
         
     }
     
@@ -73,31 +87,62 @@ class ViewController: UIViewController {
         
         sceneView.scene = scene
     }
+    
 
     func generateLabelNode (anchor: ARAnchor) -> SCNNode {
-        
+
         let skScene = SKScene(size: CGSize(width: 50, height: 50))
         skScene.backgroundColor = UIColor.clear
-        
+
         let rectangle = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 50, height: 50), cornerRadius: 5)
         rectangle.fillColor = #colorLiteral(red: 0.807843148708344, green: 0.0274509806185961, blue: 0.333333343267441, alpha: 1.0)
         rectangle.strokeColor = #colorLiteral(red: 0.439215689897537, green: 0.0117647061124444, blue: 0.192156866192818, alpha: 1.0)
         rectangle.lineWidth = 2
         rectangle.alpha = 0.8
+
+
+        //adding plane to node to add to scene
+//        let label = SCNText(string: TextHelper.message, extrusionDepth: 0.1)
+//        label.font = UIFont (name: "Arial", size: 1)
+//        label.firstMaterial!.diffuse.contents = UIColor.red
+//        let node = SCNNode(geometry: label)
+
+        var labelNode = SKLabelNode(text: TextHelper.message)
+        for myAnchor in anchorsArray {
+            if myAnchor.ID == anchor.identifier{
+                 labelNode = SKLabelNode(text: myAnchor.message)
+            }
+        }
         
-        let labelNode = SKLabelNode(text: TextHelper.message)
+        //let labelNode = SKLabelNode(text: TextHelper.message)
         labelNode.fontSize = 16
         labelNode.color = .black
         labelNode.position = CGPoint(x: rectangle.frame.midX, y: rectangle.frame.midY)
         skScene.addChild(rectangle)
         skScene.addChild(labelNode)
-        
+
         let plane = SCNPlane(width: 0.2, height: 0.2)
         plane.firstMaterial?.isDoubleSided = true
         plane.firstMaterial?.diffuse.contents = skScene
         plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
         let node = SCNNode(geometry: plane)
-        node.position = SCNVector3(x: 0, y: 0, z: -1)
+
+        //adding plane to node to add to scene
+        //let node = SCNNode(geometry: plane)
+        let camera = sceneView.session.currentFrame?.camera
+        let camX = camera?.transform.translation.x ?? 0.0
+        let camY = camera?.transform.translation.y ?? 0.0
+        let camZ = camera?.transform.translation.z ?? 0.0
+
+        var x: Float = 0.0
+        var y: Float = 0.0
+        var z: Float = 0.0
+
+        x = anchor.transform.translation.x
+        y = anchor.transform.translation.y
+        z = anchor.transform.translation.z - camZ
+
+        node.position = SCNVector3(x: x, y: y, z: z)
         return node
     }
     
@@ -185,18 +230,78 @@ class ViewController: UIViewController {
     }
     
     func archive(worldMap: ARWorldMap) throws {
+        anchor = storageRef.child("\(fileName)")
         let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
         anchor.putData(data)
         //try data.write(to: self.worldMapURL, options: [.atomic])
     }
     
     func retrieveWorldMapData(from url: URL) -> Data? {
+        anchor = storageRef.child("\(fileName)")
         do {
-            anchor.getData(maxSize: 2 * 1024 * 1024) { data, error in
-                guard let unarchievedObject = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data!),
+            
+            self.anchor.getData(maxSize: 2 * 1024 * 1024) { data, error in
+                print("world map download error: \(error)")
+                print("world map download error: \(data)")
+                guard let data = data, let unarchievedObject = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data),
                     let worldMap: ARWorldMap = unarchievedObject else { return }
-                self.loadStuff(worldMap: worldMap)
+                for anchor in worldMap.anchors {
+                    print("LOADED ID: \(anchor.identifier)")
+                }
+                
+                self.ref.child(self.fileName.replacingOccurrences(of: ".", with: "_"))
+                    .observeSingleEvent(of: DataEventType.value) { (snapshot) in
+                        
+                        snapshot.children.forEach({ (child) in
+                            let dataSnap = child as! DataSnapshot
+                            let c = dataSnap.value as! [String : String]
+                            print("the object is this achoID \(c["anchorID"]!)")
+                            print(c["text"])
+                            
+                            
+                            self.anchorsArray.append(MessageAnchor(id: UUID(uuidString:c["anchorID"]!)! , message:c["text"]!))
+                            
+//                            print("hello \(dataSnap)")
+//                            print(child)
+//
+//                            if let c = child as? [String : String] {
+//                                print(c)
+//                            } else {
+//                                print("fail")
+//                            }
+                        })
+                        
+                        //let model = snapshot.value as? [String : Any] ?? [:]
+                        
+//                        let snapshotKey = snapshot.key
+//                        let children: DataSnapshot = snapshot.childSnapshot(forPath: snapshotKey)
+
+//                        let anythignArray = self.searchJSON(json: model, searchString: "")
+//
+//                        var i = 0
+//                        while(i < anythignArray.count) {
+//
+//                            //anchorsArray.append(MessageAnchor(id: , message:))
+//
+//                            i += 3
+//                        }
+//
+                        
+                        if self.anchorsArray.count == snapshot.childrenCount {
+                            print("equal!!!")
+                            self.loadStuff(worldMap: worldMap)
+                        }
+              
+                }
+              
+                print("world map download error: \(error)")
             }
+            
+            
+           
+            
+           
+            
             
             //let data =  try Data(contentsOf: self.worldMapURL)
             
@@ -230,7 +335,16 @@ class ViewController: UIViewController {
             guard let hitTestResult = self.sceneView.hitTest(self.addButton.frame.origin, types: [.featurePoint, .estimatedHorizontalPlane, .estimatedVerticalPlane, .existingPlane]).first
                 else { return }
             let anchor = ARAnchor(transform: hitTestResult.worldTransform)
+            let model = AnchorTextModel(fileName: self.fileName, anchorID: anchor.identifier.uuidString , text: TextHelper.message)
+            //let hitVector = SCNMatrix4FromGLKMatrix4(hitTransform)
+            //            let vector3 = SCNVector3()
+            print("the messgage model is: \(model)")
+            
+            self.ref.child(self.fileName.replacingOccurrences(of: ".", with: "_")).childByAutoId().setValue(["fileName": model.fileName,
+                "anchorID": model.anchorID,
+                "text": model.text])
             self.sceneView.session.add(anchor: anchor)
+            print("SAVED ID: \(anchor.identifier)")
         }))
         
         let vc = self.view?.window?.rootViewController
@@ -258,6 +372,28 @@ class ViewController: UIViewController {
             let anchor = ARAnchor(transform: transform)
             sceneView.session.add(anchor: anchor)
         }
+    }
+    
+    
+    
+    
+    func searchJSON(json: [String:Any], searchString: String) -> [String] {
+        var array: [String] = []
+        let jsonKeys = json.keys
+        for i in 0..<jsonKeys.count {
+            let level1 = json[jsonKeys.index(jsonKeys.startIndex, offsetBy: i)]
+            if let level2 = json[level1.key] as? [String:Any] {
+                array.append(contentsOf: searchJSON(json: level2, searchString: searchString))
+            }
+            else if let level2 = json[level1.key] as? [[String:Any]] {
+                for i in 0..<level2.count {
+                    array.append(contentsOf: searchJSON(json: level2[i], searchString: searchString))
+                }
+            } else if let value = json[level1.key] as? String {
+                array.append(value)
+            }
+        }
+        return array
     }
     
 }
