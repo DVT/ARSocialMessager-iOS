@@ -23,6 +23,11 @@
 		F37CB1E9225624020047D216 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F37CB1E6225624010047D216 /* Scene.sks */; };
 		F37CB1EA225624020047D216 /* ViewController+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37CB1E7225624010047D216 /* ViewController+Location.swift */; };
 		F37CB1EB225624020047D216 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37CB1E8225624010047D216 /* Scene.swift */; };
+		F691333622572A5700CFE3A3 /* WebGrads.sks in Resources */ = {isa = PBXBuildFile; fileRef = F691333522572A5700CFE3A3 /* WebGrads.sks */; };
+		F691333A22572AA000CFE3A3 /* JavaGrads.sks in Resources */ = {isa = PBXBuildFile; fileRef = F691333922572A9F00CFE3A3 /* JavaGrads.sks */; };
+		F691333C22572BE500CFE3A3 /* IOSGrads.sks in Resources */ = {isa = PBXBuildFile; fileRef = F691333B22572BE500CFE3A3 /* IOSGrads.sks */; };
+		F691333E22572C8C00CFE3A3 /* netGrads.sks in Resources */ = {isa = PBXBuildFile; fileRef = F691333D22572C8C00CFE3A3 /* netGrads.sks */; };
+		F691334022572DAB00CFE3A3 /* UxGrads.sks in Resources */ = {isa = PBXBuildFile; fileRef = F691333F22572DAB00CFE3A3 /* UxGrads.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +51,11 @@
 		F37CB1E6225624010047D216 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
 		F37CB1E7225624010047D216 /* ViewController+Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Location.swift"; sourceTree = "<group>"; };
 		F37CB1E8225624010047D216 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		F691333522572A5700CFE3A3 /* WebGrads.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = WebGrads.sks; sourceTree = "<group>"; };
+		F691333922572A9F00CFE3A3 /* JavaGrads.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = JavaGrads.sks; sourceTree = "<group>"; };
+		F691333B22572BE500CFE3A3 /* IOSGrads.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IOSGrads.sks; sourceTree = "<group>"; };
+		F691333D22572C8C00CFE3A3 /* netGrads.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = netGrads.sks; sourceTree = "<group>"; };
+		F691333F22572DAB00CFE3A3 /* UxGrads.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = UxGrads.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +108,11 @@
 		F3456AA92252502B001BE01B /* Drop-Memory */ = {
 			isa = PBXGroup;
 			children = (
+				F691333F22572DAB00CFE3A3 /* UxGrads.sks */,
+				F691333D22572C8C00CFE3A3 /* netGrads.sks */,
+				F691333B22572BE500CFE3A3 /* IOSGrads.sks */,
+				F691333922572A9F00CFE3A3 /* JavaGrads.sks */,
+				F691333522572A5700CFE3A3 /* WebGrads.sks */,
 				F37CB1E6225624010047D216 /* Scene.sks */,
 				F37CB1E8225624010047D216 /* Scene.swift */,
 				F37CB1E7225624010047D216 /* ViewController+Location.swift */,
@@ -178,15 +193,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F691333E22572C8C00CFE3A3 /* netGrads.sks in Resources */,
+				F691333622572A5700CFE3A3 /* WebGrads.sks in Resources */,
+				F691334022572DAB00CFE3A3 /* UxGrads.sks in Resources */,
 				170284DF225632FD00563FC7 /* Panda2.sks in Resources */,
 				F3456AB92252502C001BE01B /* LaunchScreen.storyboard in Resources */,
 				170E119E2255F3B70054AEBE /* GoogleService-Info.plist in Resources */,
 				170E11AA225607F70054AEBE /* art.scnassets in Resources */,
 				170284E122563E7D00563FC7 /* Rabbit.sks in Resources */,
 				F3456AB62252502C001BE01B /* Assets.xcassets in Resources */,
+				F691333C22572BE500CFE3A3 /* IOSGrads.sks in Resources */,
 				C84D4F1C2255E05900AB75F5 /* Main.storyboard in Resources */,
 				C84D4F222256535B00AB75F5 /* noodles.sks in Resources */,
 				F37CB1E9225624020047D216 /* Scene.sks in Resources */,
+				F691333A22572AA000CFE3A3 /* JavaGrads.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
