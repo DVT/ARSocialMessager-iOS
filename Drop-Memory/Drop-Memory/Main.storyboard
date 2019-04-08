@@ -91,12 +91,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WUw-zF-WIf">
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WUw-zF-WIf">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </arscnView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WUw-zF-WIf" firstAttribute="trailing" secondItem="2cd-eE-tpo" secondAttribute="trailing" id="2DH-kn-mBp"/>
+                            <constraint firstItem="WUw-zF-WIf" firstAttribute="leading" secondItem="2cd-eE-tpo" secondAttribute="leading" id="4qD-FJ-Wz9"/>
+                            <constraint firstItem="WUw-zF-WIf" firstAttribute="bottom" secondItem="2cd-eE-tpo" secondAttribute="bottom" id="nIn-B0-9Z6"/>
+                            <constraint firstItem="WUw-zF-WIf" firstAttribute="top" secondItem="W1S-7l-RLl" secondAttribute="top" id="u5Q-eI-u2a"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2cd-eE-tpo"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Recognition" id="q7C-3U-xTg"/>

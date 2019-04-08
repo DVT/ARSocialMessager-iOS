@@ -20,11 +20,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var label: UILabel!
     
+    var container: UIView?
+    var loadingView: UIView?
+    private var loginLodingIndicator: UIActivityIndicatorView?
+    
     var scene: SCNScene!
     var storageRef: StorageReference!
     var anchor: StorageReference!
     let locationManager: CLLocationManager = CLLocationManager()
-    var fileName: String = ""
+    //var fileName: String = ""
     
     var ref: DatabaseReference!
 
@@ -39,19 +43,19 @@ class ViewController: UIViewController {
     
     var anchorsArray: [MessageAnchor] = []
     
+    var didSet = false // beacuse location keeps being updated
+    var fileName: String = "" {
+        didSet {
+            if !didSet {
+                showLodingIndicator(mustShow: true)
+                retrieveWorldMapData()
+                didSet = true
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//
-//        let uuid1 = UUID(uuidString: "59B87377-D14B-44AD-95E5-1BD58D28D9D3")
-//        let uuid2 = UUID(uuidString: "73C45F81-F5AB-46BE-B4FC-E22FF26AE2C4")
-//        let uuid3 = UUID(uuidString: "90208CD9-DBB4-4C07-AB4E-7D27D5FF5DF7")
-//        let uuid4 = UUID(uuidString: "7F1F12CF-F2C0-40D5-9B49-14625A13E46B")
-//
-//        anchorsArray.append(MessageAnchor(id: uuid1!, message: "1"))
-//        anchorsArray.append(MessageAnchor(id: uuid2!, message: "2"))
-//        anchorsArray.append(MessageAnchor(id: uuid3!, message: "3"))
-//        anchorsArray.append(MessageAnchor(id: uuid4!, message: "4"))
-//
         
         sceneView.delegate = self
         configureLighting()
@@ -75,75 +79,112 @@ class ViewController: UIViewController {
         addButton = UIButton()
         
         addButton.backgroundColor = .black
-        addButton.setTitle("Add memory", for: .normal)
+        addButton.setTitle("+", for: .normal)
+        //addButton.titleLabel?.font = [UIFont .systemFontSize:20]
         addButton.setTitleColor(.white, for: .normal)
+        
+        addButton.titleLabel?.font = UIFont(name: "Arial", size: 30)
+        
+        //let img = UIImage(named: "Button")
+        //addButton.setImage(img, for: .normal)
+        addButton.frame = CGRect(x: (view.frame.size.width / 2) - 25, y: view.frame.size.height - 195, width: 50, height: 50)
+        addButton.layer.masksToBounds = true
+        addButton.layer.cornerRadius = addButton.frame.width/2
+        
+        
         addButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
         
         self.view.addSubview(addButton)
-        addButton.translatesAutoresizingMaskIntoConstraints = false
+        //addButton.translatesAutoresizingMaskIntoConstraints = false
         
-        addButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        addButton.bottomAnchor.constraint(equalTo: label.topAnchor, constant: 0).isActive = true
+        //addButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        //addButton.bottomAnchor.constraint(equalTo: label.topAnchor, constant: 0).isActive = true
         
         sceneView.scene = scene
     }
     
+    private func showLodingIndicator(mustShow: Bool) {
+        
+        if mustShow {
+            container = UIView()
+            container!.frame = self.view.frame
+            container!.center = self.view.center
+            container!.backgroundColor = UIColor(displayP3Red: 255, green: 255, blue: 255, alpha: 0.7)
+            
+            loadingView = UIView()
+            loadingView!.frame = CGRect(x: 0.0, y: 0.0, width: 80, height: 80)
+            loadingView!.center = self.view.center
+            loadingView!.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.4)
+            loadingView!.clipsToBounds = true
+            loadingView!.layer.cornerRadius = 10
+            
+            loginLodingIndicator = UIActivityIndicatorView()
+            loginLodingIndicator!.frame = CGRect(x: 0.0, y: 0.0, width: 40, height: 40)
+            
+            let frameWidth = loadingView!.frame.size.width
+            let frameHeight = loadingView!.frame.size.height
+            loginLodingIndicator?.center = CGPoint(x: frameWidth / 2, y: frameHeight / 2)
+            loginLodingIndicator?.hidesWhenStopped = true
+            loginLodingIndicator?.style = UIActivityIndicatorView.Style.whiteLarge
+            loadingView!.addSubview(loginLodingIndicator!)
+            container!.addSubview(loadingView!)
+            self.view.addSubview(container!)
+            loginLodingIndicator?.startAnimating()
+        } else {
+            container?.isHidden = true
+            loadingView?.isHidden = true
+            loginLodingIndicator?.stopAnimating()
+            loginLodingIndicator = nil
+        }
+    }
+    
 
     func generateLabelNode (anchor: ARAnchor) -> SCNNode {
-
-        let skScene = SKScene(size: CGSize(width: 50, height: 50))
-        skScene.backgroundColor = UIColor.clear
-
-        let rectangle = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 50, height: 50), cornerRadius: 5)
-        rectangle.fillColor = #colorLiteral(red: 0.807843148708344, green: 0.0274509806185961, blue: 0.333333343267441, alpha: 1.0)
-        rectangle.strokeColor = #colorLiteral(red: 0.439215689897537, green: 0.0117647061124444, blue: 0.192156866192818, alpha: 1.0)
-        rectangle.lineWidth = 2
-        rectangle.alpha = 0.8
-
-
-        //adding plane to node to add to scene
-//        let label = SCNText(string: TextHelper.message, extrusionDepth: 0.1)
-//        label.font = UIFont (name: "Arial", size: 1)
-//        label.firstMaterial!.diffuse.contents = UIColor.red
-//        let node = SCNNode(geometry: label)
-
-        var labelNode = SKLabelNode(text: TextHelper.message)
+        
         for myAnchor in anchorsArray {
-            if myAnchor.ID == anchor.identifier{
-                 labelNode = SKLabelNode(text: myAnchor.message)
+            if myAnchor.ID == anchor.identifier {
+                TextHelper.message = myAnchor.message
+                break
             }
         }
         
-        //let labelNode = SKLabelNode(text: TextHelper.message)
-        labelNode.fontSize = 16
-        labelNode.color = .black
-        labelNode.position = CGPoint(x: rectangle.frame.midX, y: rectangle.frame.midY)
-        skScene.addChild(rectangle)
-        skScene.addChild(labelNode)
-
-        let plane = SCNPlane(width: 0.2, height: 0.2)
-        plane.firstMaterial?.isDoubleSided = true
-        plane.firstMaterial?.diffuse.contents = skScene
-        plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-        let node = SCNNode(geometry: plane)
-
-        //adding plane to node to add to scene
-        //let node = SCNNode(geometry: plane)
-        let camera = sceneView.session.currentFrame?.camera
-        let camX = camera?.transform.translation.x ?? 0.0
-        let camY = camera?.transform.translation.y ?? 0.0
-        let camZ = camera?.transform.translation.z ?? 0.0
-
-        var x: Float = 0.0
-        var y: Float = 0.0
-        var z: Float = 0.0
-
-        x = anchor.transform.translation.x
-        y = anchor.transform.translation.y
-        z = anchor.transform.translation.z - camZ
-
-        node.position = SCNVector3(x: x, y: y, z: z)
-        return node
+        let text = SCNText(string: TextHelper.message, extrusionDepth: 0.1)
+        text.font = UIFont.systemFont(ofSize: 1)
+        text.flatness = 0.005
+        let textNode = SCNNode(geometry: text)
+        let fontScale: Float = 0.01
+        textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
+        
+        let (min, max) = (text.boundingBox.min, text.boundingBox.max)
+        let dx = min.x + 0.5 * (max.x - min.x)
+        let dy = min.y + 0.5 * (max.y - min.y)
+        let dz = min.z + 0.5 * (max.z - min.z)
+        textNode.pivot = SCNMatrix4MakeTranslation(dx, dy, dz)
+        
+        let width = (max.x - min.x) * fontScale
+        let height = (max.y - min.y) * fontScale
+        let plane = SCNPlane(width: CGFloat(width + 0.01), height: CGFloat(height + 0.01))
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.8)
+        planeNode.geometry?.firstMaterial?.isDoubleSided = true
+        planeNode.position = textNode.position
+        textNode.eulerAngles = planeNode.eulerAngles
+        
+        //rotation
+        if let currentFrame =  sceneView.session.currentFrame {
+            planeNode.transform = SCNMatrix4MakeRotation(currentFrame.camera.eulerAngles.y, 0 , 1, 0)
+        } else {
+            planeNode.transform = SCNMatrix4MakeRotation(anchor.transform.columns.1.w, 0 , 1, 0)
+        }
+        
+        //translation
+        if let planeAnchor = anchor as? ARPlaneAnchor {
+            planeNode.transform = SCNMatrix4Translate(planeNode.transform, planeAnchor.center.x, 0, planeAnchor.center.z)
+        } else {
+            planeNode.transform = SCNMatrix4Translate(planeNode.transform, anchor.transform.translation.x, 0, anchor.transform.translation.z)
+        }
+        planeNode.addChildNode(textNode)
+        return planeNode
     }
     
     func generateBoxNode (anchor: ARAnchor) -> SCNNode {
@@ -179,7 +220,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func saveBarButtonItemDidTouch(_ sender: UIBarButtonItem) {
+        showLodingIndicator(mustShow: true)
         sceneView.session.getCurrentWorldMap { (worldMap, error) in
+            self.showLodingIndicator(mustShow: false)
             guard let worldMap = worldMap else {
                 return self.setLabel(text: "Error getting current world map.")
             }
@@ -197,7 +240,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func loadBarButtonItemDidTouch(_ sender: UIBarButtonItem) {
-        let _ = retrieveWorldMapData(from: worldMapURL)
+        let _ = retrieveWorldMapData()
+        showLodingIndicator(mustShow: true)
     }
     
     func loadStuff(worldMap: ARWorldMap) {
@@ -236,15 +280,17 @@ class ViewController: UIViewController {
         //try data.write(to: self.worldMapURL, options: [.atomic])
     }
     
-    func retrieveWorldMapData(from url: URL) -> Data? {
+    func retrieveWorldMapData() -> Data? {
         anchor = storageRef.child("\(fileName)")
         do {
             
             self.anchor.getData(maxSize: 2 * 1024 * 1024) { data, error in
+                self.showLodingIndicator(mustShow: false)
                 print("world map download error: \(error)")
                 print("world map download error: \(data)")
                 guard let data = data, let unarchievedObject = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data),
-                    let worldMap: ARWorldMap = unarchievedObject else { return }
+                    let worldMap: ARWorldMap = unarchievedObject else { self.setLabel(text: "Error: Failed to unarchieve WorldMap")
+                        return }
                 for anchor in worldMap.anchors {
                     print("LOADED ID: \(anchor.identifier)")
                 }
@@ -255,56 +301,20 @@ class ViewController: UIViewController {
                         snapshot.children.forEach({ (child) in
                             let dataSnap = child as! DataSnapshot
                             let c = dataSnap.value as! [String : String]
-                            print("the object is this achoID \(c["anchorID"]!)")
-                            print(c["text"])
-                            
+//                            print("the object is this achoID \(c["anchorID"]!)")
+//                            print(c["text"])
                             
                             self.anchorsArray.append(MessageAnchor(id: UUID(uuidString:c["anchorID"]!)! , message:c["text"]!))
-                            
-//                            print("hello \(dataSnap)")
-//                            print(child)
-//
-//                            if let c = child as? [String : String] {
-//                                print(c)
-//                            } else {
-//                                print("fail")
-//                            }
                         })
-                        
-                        //let model = snapshot.value as? [String : Any] ?? [:]
-                        
-//                        let snapshotKey = snapshot.key
-//                        let children: DataSnapshot = snapshot.childSnapshot(forPath: snapshotKey)
-
-//                        let anythignArray = self.searchJSON(json: model, searchString: "")
-//
-//                        var i = 0
-//                        while(i < anythignArray.count) {
-//
-//                            //anchorsArray.append(MessageAnchor(id: , message:))
-//
-//                            i += 3
-//                        }
-//
                         
                         if self.anchorsArray.count == snapshot.childrenCount {
                             print("equal!!!")
                             self.loadStuff(worldMap: worldMap)
                         }
-              
                 }
               
                 print("world map download error: \(error)")
             }
-            
-            
-           
-            
-           
-            
-            
-            //let data =  try Data(contentsOf: self.worldMapURL)
-            
             return nil
         } catch {
             self.setLabel(text: "Error retrieving world map data.")

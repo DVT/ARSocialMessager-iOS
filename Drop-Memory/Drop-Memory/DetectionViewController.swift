@@ -61,7 +61,31 @@ class DetectionViewController: UIViewController, ARSCNViewDelegate {
             guard let name = objectAnchor.referenceObject.name else {
                 return nil
             }
-            let displayScene = SKScene(fileNamed: name)
+            
+            var displayScene = SKScene()
+            if name.contains("IOSGrads") {
+                displayScene = SKScene(fileNamed: "IOSGrads")!
+                sceneView.scene.rootNode.childNodes.filter({ $0.name == "IOS" }).forEach({ $0.removeFromParentNode() })
+                node.name = "IOS"
+            } else if name.contains("netGrads") {
+                displayScene = SKScene(fileNamed: "netGrads")!
+                sceneView.scene.rootNode.childNodes.filter({ $0.name == "Net" }).forEach({ $0.removeFromParentNode() })
+                node.name = "Net"
+            } else if name.contains("WebGrads") {
+                displayScene = SKScene(fileNamed: "WebGrads")!
+                sceneView.scene.rootNode.childNodes.filter({ $0.name == "Web" }).forEach({ $0.removeFromParentNode() })
+                node.name = "Web"
+            } else if name.contains("JavaGrads") {
+                displayScene = SKScene(fileNamed: "JavaGrads")!
+                sceneView.scene.rootNode.childNodes.filter({ $0.name == "Java" }).forEach({ $0.removeFromParentNode() })
+                node.name = "Java"
+            } else if name.contains("UxGrads") {
+                displayScene = SKScene(fileNamed: "UxGrads")!
+                sceneView.scene.rootNode.childNodes.filter({ $0.name == "Ux" }).forEach({ $0.removeFromParentNode() })
+                node.name = "Ux"
+            } else if name.contains("noodles") {
+                displayScene = SKScene(fileNamed: "noodles")!
+            }
     
             plane.firstMaterial?.diffuse.contents = displayScene
             plane.firstMaterial?.isDoubleSided = true
@@ -69,6 +93,7 @@ class DetectionViewController: UIViewController, ARSCNViewDelegate {
             
             let planeNode = SCNNode(geometry: plane)
             planeNode.position = SCNVector3Make(objectAnchor.referenceObject.center.x, objectAnchor.referenceObject.center.y + 0.15, objectAnchor.referenceObject.center.z)
+            
             
             node.addChildNode(planeNode)
             
