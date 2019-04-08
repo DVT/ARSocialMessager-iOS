@@ -26,31 +26,22 @@ extension ViewController: CLLocationManagerDelegate {
             print("Error: Could not get access to your current location")
             return
         }
-        print("Location: \(location)")
-       // if fileName.isEmpty {
-            
             //latitude
-            let lat = String(location.coordinate.latitude)
-            let dotIndexLat = lat.firstIndex(of: ".")!
-            let latWithDecimals = lat.index(dotIndexLat, offsetBy: 2)
-            let latWithDecimalsString = lat[...latWithDecimals]
-            
-            //longitued
-            let log = String(location.coordinate.longitude)
-            let dotIndexLog = log.firstIndex(of: ".")!
-            let logWithDecimals = log.index(dotIndexLog, offsetBy: 2)
-            let logWithDecimalsString = log[...logWithDecimals]
-            
-            fileName = "Test/\(latWithDecimalsString)|\(logWithDecimalsString)" //<<
+        let lat = String(location.coordinate.latitude)
+        let dotIndexLat = lat.firstIndex(of: ".")!
+        let latWithDecimals = lat.index(dotIndexLat, offsetBy: 2)
+        let latWithDecimalsString = lat[...latWithDecimals]
         
-        print("file name:")
-            print(fileName)
-            //print("############ \(fileName)")
-        //}
+        //longitude
+        let log = String(location.coordinate.longitude)
+        let dotIndexLog = log.firstIndex(of: ".")!
+        let logWithDecimals = log.index(dotIndexLog, offsetBy: 2)
+        let logWithDecimalsString = log[...logWithDecimals]
+        
+        fileName = "Test/\(latWithDecimalsString)|\(logWithDecimalsString)"
 
        // locationManager.stopUpdatingLocation()
     }
-    
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationManager.startUpdatingLocation()

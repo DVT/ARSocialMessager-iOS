@@ -1,12 +1,3 @@
-
-//
-//  ViewController.swift
-//  ARKitWorkingWithWorldMapData
-//
-//  Created by Macbook on 8/11/18.
-//  Copyright © 2018 Jayven Nhan. All rights reserved.
-//
-
 import UIKit
 import ARKit
 import Firebase
@@ -15,31 +6,18 @@ import FirebaseDatabase
 
 class ViewController: UIViewController {
     
-    var addButton: UIButton!
-    
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var label: UILabel!
     
+    var addButton: UIButton!
     var container: UIView?
     var loadingView: UIView?
     private var loginLodingIndicator: UIActivityIndicatorView?
-    
     var scene: SCNScene!
     var storageRef: StorageReference!
     var anchor: StorageReference!
     let locationManager: CLLocationManager = CLLocationManager()
-    //var fileName: String = ""
-    
     var ref: DatabaseReference!
-
-    var worldMapURL: URL = {
-        do {
-            return try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-                .appendingPathComponent("worldMapURL")
-        } catch {
-            fatalError("Error getting world map URL from document directory.")
-        }
-    }()
     
     var anchorsArray: [MessageAnchor] = []
     
@@ -59,48 +37,35 @@ class ViewController: UIViewController {
         
         sceneView.delegate = self
         configureLighting()
-        //addTapGestureToSceneView()
         setScene()
         storageRef = Storage.storage().reference()
         ref = Database.database().reference()
-        print("bucket \(storageRef.bucket)")
-      
-        //<<
-        //Location Delegates
+//        print("bucket \(storageRef.bucket)")
+
+        //Location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        //for location updates -> uncomment to enable
 //        locationManager.startUpdatingHeading()  //for angle
-        //locationManager.requestLocation()
+//        locationManager.requestLocation()
         
     }
     
     func setScene() {
         scene = SCNScene()
-        addButton = UIButton()
+        sceneView.scene = scene
         
+        addButton = UIButton()
         addButton.backgroundColor = .black
         addButton.setTitle("+", for: .normal)
-        //addButton.titleLabel?.font = [UIFont .systemFontSize:20]
         addButton.setTitleColor(.white, for: .normal)
-        
         addButton.titleLabel?.font = UIFont(name: "Arial", size: 30)
-        
-        //let img = UIImage(named: "Button")
-        //addButton.setImage(img, for: .normal)
         addButton.frame = CGRect(x: (view.frame.size.width / 2) - 25, y: view.frame.size.height - 195, width: 50, height: 50)
         addButton.layer.masksToBounds = true
         addButton.layer.cornerRadius = addButton.frame.width/2
         
-        
         addButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
-        
         self.view.addSubview(addButton)
-        //addButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        //addButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        //addButton.bottomAnchor.constraint(equalTo: label.topAnchor, constant: 0).isActive = true
-        
-        sceneView.scene = scene
     }
     
     private func showLodingIndicator(mustShow: Bool) {
@@ -149,10 +114,22 @@ class ViewController: UIViewController {
         }
         
         let text = SCNText(string: TextHelper.message, extrusionDepth: 0.1)
-        text.font = UIFont.systemFont(ofSize: 1)
+        text.font = UIFont.systemFont(ofSize: 2)
         text.flatness = 0.005
         let textNode = SCNNode(geometry: text)
-        let fontScale: Float = 0.01
+        
+        var fontScale: Float = 0.05
+        
+        if let planeAnchor = anchor as? ARPlaneAnchor {
+            fontScale *= planeAnchor.center.z
+        } else {
+            fontScale *= anchor.transform.translation.z
+        }
+        
+        fontScale = fontScale < 0 ? fontScale * -1 : fontScale
+        
+        fontScale = fontScale < 1 && fontScale > 0 ? fontScale * 0.5 : fontScale
+        
         textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
         
         let (min, max) = (text.boundingBox.min, text.boundingBox.max)
@@ -187,23 +164,10 @@ class ViewController: UIViewController {
         return planeNode
     }
     
-    func generateBoxNode (anchor: ARAnchor) -> SCNNode {
-        let box = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.0)
-        box.firstMaterial!.diffuse.contents = UIColor.red
-        var boxNode = SCNNode(geometry: box)
-        var x = anchor.transform.columns.3.x + Float.random(in: 0...0.5)
-        var y = anchor.transform.columns.3.y + Float.random(in: 0...0.05)
-        var z = anchor.transform.columns.3.z - Float.random(in: 10...15)
-        boxNode.position = SCNVector3(x: 0, y: 0, z: 0)
-        return boxNode
-    }
-    
-    
     func configureLighting() {
         sceneView.autoenablesDefaultLighting = true
         sceneView.automaticallyUpdatesLighting = true
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -228,7 +192,7 @@ class ViewController: UIViewController {
             }
             
             do {
-                self.anchor = self.storageRef.child(self.fileName) //<<
+                self.anchor = self.storageRef.child(self.fileName)
                 try self.archive(worldMap: worldMap)
                 DispatchQueue.main.async {
                     self.setLabel(text: "World map is saved.")
@@ -266,7 +230,6 @@ class ViewController: UIViewController {
         for node in childNodes {
             node.removeFromParentNode()
         }
-//        addCameraNode()
     }
     
     func setLabel(text: String) {
@@ -277,7 +240,6 @@ class ViewController: UIViewController {
         anchor = storageRef.child("\(fileName)")
         let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
         anchor.putData(data)
-        //try data.write(to: self.worldMapURL, options: [.atomic])
     }
     
     func retrieveWorldMapData() -> Data? {
@@ -301,14 +263,11 @@ class ViewController: UIViewController {
                         snapshot.children.forEach({ (child) in
                             let dataSnap = child as! DataSnapshot
                             let c = dataSnap.value as! [String : String]
-//                            print("the object is this achoID \(c["anchorID"]!)")
-//                            print(c["text"])
-                            
                             self.anchorsArray.append(MessageAnchor(id: UUID(uuidString:c["anchorID"]!)! , message:c["text"]!))
                         })
                         
                         if self.anchorsArray.count == snapshot.childrenCount {
-                            print("equal!!!")
+//                            print("equal!!!")
                             self.loadStuff(worldMap: worldMap)
                         }
                 }
@@ -340,21 +299,23 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
             TextHelper.message = textField!.text!
-            //self.theRest()
             
-            guard let hitTestResult = self.sceneView.hitTest(self.addButton.frame.origin, types: [.featurePoint, .estimatedHorizontalPlane, .estimatedVerticalPlane, .existingPlane, .existingPlaneUsingExtent, .existingPlaneUsingGeometry]).first
+            guard let hitTestResult = self.sceneView.hitTest(self.addButton.frame.origin, types: [.featurePoint,
+                                                                                                  .estimatedHorizontalPlane,
+                                                                                                  .estimatedVerticalPlane,
+                                                                                                  .existingPlane,
+                                                                                                  .existingPlaneUsingExtent,
+                                                                                                  .existingPlaneUsingGeometry]).first
                 else { return }
             let anchor = ARAnchor(transform: hitTestResult.worldTransform)
-            let model = AnchorTextModel(fileName: self.fileName, anchorID: anchor.identifier.uuidString , text: TextHelper.message)
-            //let hitVector = SCNMatrix4FromGLKMatrix4(hitTransform)
-            //            let vector3 = SCNVector3()
-            print("the messgage model is: \(model)")
-            
-            self.ref.child(self.fileName.replacingOccurrences(of: ".", with: "_")).childByAutoId().setValue(["fileName": model.fileName,
-                "anchorID": model.anchorID,
-                "text": model.text])
+//            let model = AnchorTextModel(fileName: self.fileName, anchorID: anchor.identifier.uuidString , text: TextHelper.message)
+//            print("the messgage model is: \(model)")
+//
+//            self.ref.child(self.fileName.replacingOccurrences(of: ".", with: "_")).childByAutoId().setValue(["fileName": model.fileName,
+//                "anchorID": model.anchorID,
+//                "text": model.text])
             self.sceneView.session.add(anchor: anchor)
-            print("SAVED ID: \(anchor.identifier)")
+//            print("SAVED ID: \(anchor.identifier)")
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak alert] (_) in
@@ -366,63 +327,14 @@ class ViewController: UIViewController {
             vc?.present(alert, animated: true, completion: nil)
         }
     }
-    
-    
-    func theRest() {
-        
-        guard let sceneView = self.view as? ARSKView else {
-            return
-        }
-        
-        // Create anchor using the camera's current position
-        if let currentFrame = sceneView.session.currentFrame {
-            
-            // Create a transform with a translation of 0.2 meters in front of the camera
-            var translation = matrix_identity_float4x4
-            translation.columns.3.z = -0.2
-            let transform = simd_mul(currentFrame.camera.transform, translation)
-            
-            // Add a new anchor to the session
-            let anchor = ARAnchor(transform: transform)
-            sceneView.session.add(anchor: anchor)
-        }
-    }
-    
-    
-    
-    
-    func searchJSON(json: [String:Any], searchString: String) -> [String] {
-        var array: [String] = []
-        let jsonKeys = json.keys
-        for i in 0..<jsonKeys.count {
-            let level1 = json[jsonKeys.index(jsonKeys.startIndex, offsetBy: i)]
-            if let level2 = json[level1.key] as? [String:Any] {
-                array.append(contentsOf: searchJSON(json: level2, searchString: searchString))
-            }
-            else if let level2 = json[level1.key] as? [[String:Any]] {
-                for i in 0..<level2.count {
-                    array.append(contentsOf: searchJSON(json: level2[i], searchString: searchString))
-                }
-            } else if let value = json[level1.key] as? String {
-                array.append(value)
-            }
-        }
-        return array
-    }
-    
 }
-
-
+    
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard !(anchor is ARPlaneAnchor) else { return }
-        if let currentFrame = sceneView.session.currentFrame{
-            let node = generateLabelNode(anchor: anchor)
-            DispatchQueue.main.async {
-                self.scene.rootNode.addChildNode(node)
-                //self.cameraNode.removeFromParentNode()
-                //            self.addCameraNode()
-            }
+//        guard !(anchor is ARPlaneAnchor) else { return } //uncomment for just plane detection
+        let node = generateLabelNode(anchor: anchor)
+        DispatchQueue.main.async {
+            self.scene.rootNode.addChildNode(node)
         }
     }
     
