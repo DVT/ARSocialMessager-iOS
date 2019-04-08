@@ -2,7 +2,7 @@
 
 ![](drop_memory_icon.png)
 
-![](recognition.PNG| width=100)	![](dropmemory.PNG)
+![](recognition.PNG | width=100)	![](dropmemory.PNG)
 
 DropMemory is an iOS app that combines augmented reality (AR) and social networking. Using the app, and the help of AR, the user can leave a message in a real-world environment and save this message to the cloud. Other users can then find the messages that you left, and add their own messages  
 
