@@ -8,9 +8,9 @@
 
 import Foundation
 
-//struct AnchorTextModel {
-//    var fileName: String?
-//    var anchorID: String?
-//    var text: String?
-//
-//}
+struct AnchorTextModel {
+    var fileName: String?
+    var anchorID: String?
+    var text: String?
+
+}

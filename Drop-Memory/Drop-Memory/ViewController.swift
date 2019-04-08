@@ -128,7 +128,7 @@ class ViewController: UIViewController {
         
         fontScale = fontScale < 0 ? fontScale * -1 : fontScale
         
-        fontScale = fontScale < 1 && fontScale > 0 ? fontScale * 0.5 : fontScale
+        fontScale = fontScale < 1 && fontScale > 0 ? fontScale * 5 : fontScale
         
         textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
         
@@ -301,17 +301,17 @@ class ViewController: UIViewController {
             
             guard let hitTestResult = self.sceneView.hitTest(self.addButton.frame.origin, types: [.featurePoint,
                                                                                                   .estimatedHorizontalPlane,
-                                                                                                  .estimatedVerticalPlane]).first
+                                                                                                  .estimatedVerticalPlane,
+                                                                                                  .existingPlane]).first
                 else { return }
             let anchor = ARAnchor(transform: hitTestResult.worldTransform)
-//            let model = AnchorTextModel(fileName: self.fileName, anchorID: anchor.identifier.uuidString , text: TextHelper.message)
-//            print("the messgage model is: \(model)")
-//
-//            self.ref.child(self.fileName.replacingOccurrences(of: ".", with: "_")).childByAutoId().setValue(["fileName": model.fileName,
-//                "anchorID": model.anchorID,
-//                "text": model.text])
+            let model = AnchorTextModel(fileName: self.fileName, anchorID: anchor.identifier.uuidString , text: TextHelper.message)
+            print("the messgage model is: \(model)")
+
+            self.ref.child(self.fileName.replacingOccurrences(of: ".", with: "_")).childByAutoId().setValue(["fileName": model.fileName,
+                "anchorID": model.anchorID,
+                "text": model.text])
             self.sceneView.session.add(anchor: anchor)
-//            print("SAVED ID: \(anchor.identifier)")
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak alert] (_) in
@@ -327,7 +327,7 @@ class ViewController: UIViewController {
     
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard !(anchor is ARPlaneAnchor) else { return } //uncomment for just plane detection
+        guard !(anchor is ARPlaneAnchor) else { return }
         let node = generateLabelNode(anchor: anchor)
         DispatchQueue.main.async {
             self.scene.rootNode.addChildNode(node)
