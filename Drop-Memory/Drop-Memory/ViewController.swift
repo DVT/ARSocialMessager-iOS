@@ -267,7 +267,6 @@ class ViewController: UIViewController {
                         })
                         
                         if self.anchorsArray.count == snapshot.childrenCount {
-//                            print("equal!!!")
                             self.loadStuff(worldMap: worldMap)
                         }
                 }
@@ -302,10 +301,7 @@ class ViewController: UIViewController {
             
             guard let hitTestResult = self.sceneView.hitTest(self.addButton.frame.origin, types: [.featurePoint,
                                                                                                   .estimatedHorizontalPlane,
-                                                                                                  .estimatedVerticalPlane,
-                                                                                                  .existingPlane,
-                                                                                                  .existingPlaneUsingExtent,
-                                                                                                  .existingPlaneUsingGeometry]).first
+                                                                                                  .estimatedVerticalPlane]).first
                 else { return }
             let anchor = ARAnchor(transform: hitTestResult.worldTransform)
 //            let model = AnchorTextModel(fileName: self.fileName, anchorID: anchor.identifier.uuidString , text: TextHelper.message)
@@ -331,7 +327,7 @@ class ViewController: UIViewController {
     
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-//        guard !(anchor is ARPlaneAnchor) else { return } //uncomment for just plane detection
+        guard !(anchor is ARPlaneAnchor) else { return } //uncomment for just plane detection
         let node = generateLabelNode(anchor: anchor)
         DispatchQueue.main.async {
             self.scene.rootNode.addChildNode(node)
