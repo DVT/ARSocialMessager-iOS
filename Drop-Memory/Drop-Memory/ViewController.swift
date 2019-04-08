@@ -114,21 +114,21 @@ class ViewController: UIViewController {
         }
         
         let text = SCNText(string: TextHelper.message, extrusionDepth: 0.1)
-        text.font = UIFont.systemFont(ofSize: 2)
+        text.font = UIFont.systemFont(ofSize: 1)
         text.flatness = 0.005
         let textNode = SCNNode(geometry: text)
         
-        var fontScale: Float = 0.05
+        var fontScale: Float = 0.01
         
         if let planeAnchor = anchor as? ARPlaneAnchor {
             fontScale *= planeAnchor.center.z
         } else {
             fontScale *= anchor.transform.translation.z
         }
-        
+    
         fontScale = fontScale < 0 ? fontScale * -1 : fontScale
         
-        fontScale = fontScale < 1 && fontScale > 0 ? fontScale * 5 : fontScale
+        fontScale = fontScale < 1 && fontScale > 0 ? fontScale * 50 : fontScale
         
         textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
         
@@ -151,7 +151,7 @@ class ViewController: UIViewController {
         if let currentFrame =  sceneView.session.currentFrame {
             planeNode.transform = SCNMatrix4MakeRotation(currentFrame.camera.eulerAngles.y, 0 , 1, 0)
         } else {
-            planeNode.transform = SCNMatrix4MakeRotation(anchor.transform.columns.1.w, 0 , 1, 0)
+            planeNode.transform = SCNMatrix4MakeRotation(Float(anchor.transform.columns.1.w), 0 , 1, 0)
         }
         
         //translation
@@ -302,7 +302,9 @@ class ViewController: UIViewController {
             guard let hitTestResult = self.sceneView.hitTest(self.addButton.frame.origin, types: [.featurePoint,
                                                                                                   .estimatedHorizontalPlane,
                                                                                                   .estimatedVerticalPlane,
-                                                                                                  .existingPlane]).first
+                                                                                                  .existingPlane,
+                                                                                                  .existingPlaneUsingExtent,
+                                                                                                  .existingPlaneUsingGeometry]).first
                 else { return }
             let anchor = ARAnchor(transform: hitTestResult.worldTransform)
             let model = AnchorTextModel(fileName: self.fileName, anchorID: anchor.identifier.uuidString , text: TextHelper.message)
