@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Messages-->
+        <!--Memories-->
         <scene sceneID="aEd-dF-Jhl">
             <objects>
                 <viewController id="gxN-4y-AZY" customClass="ViewController" customModule="Drop_Memory" customModuleProvider="target" sceneMemberID="viewController">
@@ -73,7 +73,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8yC-7C-We2"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Messages" id="0tw-7F-du6"/>
+                    <tabBarItem key="tabBarItem" title="Memories" image="House" id="0tw-7F-du6"/>
                     <connections>
                         <outlet property="label" destination="dTS-hu-3GP" id="AbK-Em-W6Q"/>
                         <outlet property="sceneView" destination="nkh-V8-3yl" id="f1s-Ya-hj0"/>
@@ -104,7 +104,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2cd-eE-tpo"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Recognition" id="q7C-3U-xTg"/>
+                    <tabBarItem key="tabBarItem" title="Recognition" image="Recognition" id="q7C-3U-xTg"/>
                     <connections>
                         <outlet property="sceneView" destination="WUw-zF-WIf" id="lOo-n3-mVT"/>
                     </connections>
@@ -133,4 +133,8 @@
             <point key="canvasLocation" x="1076" y="478.11094452773619"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="House" width="24" height="24"/>
+        <image name="Recognition" width="24" height="24"/>
+    </resources>
 </document>

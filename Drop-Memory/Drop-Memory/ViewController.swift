@@ -255,7 +255,7 @@ class ViewController: UIViewController {
         let options: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
         if let worldMap = worldMap {
             configuration.initialWorldMap = worldMap
-            setLabel(text: "Found saved world map.")
+            setLabel(text: "Found saved world map. Move camera to find text")
         } else {
             setLabel(text: "Move camera around to map your surrounding space.")
         }
@@ -342,7 +342,7 @@ class ViewController: UIViewController {
             TextHelper.message = textField!.text!
             //self.theRest()
             
-            guard let hitTestResult = self.sceneView.hitTest(self.addButton.frame.origin, types: [.featurePoint, .estimatedHorizontalPlane, .estimatedVerticalPlane, .existingPlane]).first
+            guard let hitTestResult = self.sceneView.hitTest(self.addButton.frame.origin, types: [.featurePoint, .estimatedHorizontalPlane, .estimatedVerticalPlane, .existingPlane, .existingPlaneUsingExtent, .existingPlaneUsingGeometry]).first
                 else { return }
             let anchor = ARAnchor(transform: hitTestResult.worldTransform)
             let model = AnchorTextModel(fileName: self.fileName, anchorID: anchor.identifier.uuidString , text: TextHelper.message)
@@ -355,6 +355,10 @@ class ViewController: UIViewController {
                 "text": model.text])
             self.sceneView.session.add(anchor: anchor)
             print("SAVED ID: \(anchor.identifier)")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak alert] (_) in
+            //Just does nothing
         }))
         
         let vc = self.view?.window?.rootViewController
@@ -420,7 +424,6 @@ extension ViewController: ARSCNViewDelegate {
                 //            self.addCameraNode()
             }
         }
-
     }
     
 }
