@@ -128,7 +128,7 @@ class ViewController: UIViewController {
     
         fontScale = fontScale < 0 ? fontScale * -1 : fontScale
         
-        fontScale = fontScale < 1 && fontScale > 0 ? fontScale * 50 : fontScale
+        fontScale = fontScale < 1 && fontScale > 0 ? fontScale * 5  : fontScale
         
         textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
         
