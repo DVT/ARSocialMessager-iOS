@@ -113,22 +113,26 @@ class ViewController: UIViewController {
             }
         }
         
-        let text = SCNText(string: TextHelper.message, extrusionDepth: 0.1)
-        text.font = UIFont.systemFont(ofSize: 1)
+        let text = SCNText(string: TextHelper.message, extrusionDepth: 0.05)
+        text.font = UIFont(name: "Arial", size: 10)
         text.flatness = 0.005
+        text.alignmentMode = CATextLayerAlignmentMode.center.rawValue
+        text.containerFrame = CGRect(origin: .zero, size: CGSize(width: 100.0, height: 500.0))
+        text.isWrapped = true
         let textNode = SCNNode(geometry: text)
+        textNode.geometry?.firstMaterial?.diffuse.contents = UIColor.black
         
         var fontScale: Float = 0.01
         
-        if let planeAnchor = anchor as? ARPlaneAnchor {
-            fontScale *= 1/planeAnchor.center.z
-        } else {
-            fontScale *= 1/anchor.transform.translation.z
-        }
-    
-        fontScale = fontScale < 0 ? fontScale * -1 : fontScale
-        
-        fontScale = fontScale < 100 && fontScale > 10 ? (fontScale / 10) * 0.5 : fontScale
+//        if let planeAnchor = anchor as? ARPlaneAnchor {
+//            fontScale *= 1/planeAnchor.center.z
+//        } else {
+//            fontScale *= 1/anchor.transform.translation.z
+//        }
+//
+//        fontScale = fontScale < 0 ? fontScale * -1 : fontScale
+//
+//        fontScale = fontScale < 100 && fontScale > 10 ? (fontScale / 10) * 0.5 : fontScale
         
         textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
         
@@ -140,9 +144,10 @@ class ViewController: UIViewController {
         
         let width = (max.x - min.x) * fontScale
         let height = (max.y - min.y) * fontScale
-        let plane = SCNPlane(width: CGFloat(width + 0.01), height: CGFloat(height + 0.01))
+        let plane = SCNPlane(width: CGFloat(width + 0.2), height: CGFloat(height + 0.2))
         let planeNode = SCNNode(geometry: plane)
-        planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.8)
+        planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.lightGray.withAlphaComponent(0.8)
+        plane.cornerRadius = plane.width * 0.05
         planeNode.geometry?.firstMaterial?.isDoubleSided = true
         planeNode.position = textNode.position
         textNode.eulerAngles = planeNode.eulerAngles
@@ -151,14 +156,14 @@ class ViewController: UIViewController {
         if let currentFrame =  sceneView.session.currentFrame {
             planeNode.transform = SCNMatrix4MakeRotation(currentFrame.camera.eulerAngles.y, 0 , 1, 0)
         } else {
-            planeNode.transform = SCNMatrix4MakeRotation(Float(anchor.transform.columns.1.w), 0 , 1, 0)
+            planeNode.transform = SCNMatrix4MakeRotation(Float(anchor.transform.columns.3.y), 0 , 1, 0)
         }
         
         //translation
         if let planeAnchor = anchor as? ARPlaneAnchor {
-            planeNode.transform = SCNMatrix4Translate(planeNode.transform, planeAnchor.center.x, 0, planeAnchor.center.z)
+            planeNode.transform = SCNMatrix4Translate(planeNode.transform, planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
         } else {
-            planeNode.transform = SCNMatrix4Translate(planeNode.transform, anchor.transform.translation.x, 0, anchor.transform.translation.z)
+            planeNode.transform = SCNMatrix4Translate(planeNode.transform, anchor.transform.translation.x, anchor.transform.translation.y, anchor.transform.translation.z)
         }
         planeNode.addChildNode(textNode)
         return planeNode
