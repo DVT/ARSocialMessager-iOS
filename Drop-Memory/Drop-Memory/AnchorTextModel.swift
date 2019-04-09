@@ -12,5 +12,5 @@ struct AnchorTextModel {
     var fileName: String?
     var anchorID: String?
     var text: String?
-    
+
 }
