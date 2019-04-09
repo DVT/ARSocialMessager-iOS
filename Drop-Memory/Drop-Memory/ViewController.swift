@@ -121,14 +121,14 @@ class ViewController: UIViewController {
         var fontScale: Float = 0.01
         
         if let planeAnchor = anchor as? ARPlaneAnchor {
-            fontScale *= planeAnchor.center.z
+            fontScale *= 1/planeAnchor.center.z
         } else {
-            fontScale *= anchor.transform.translation.z
+            fontScale *= 1/anchor.transform.translation.z
         }
     
         fontScale = fontScale < 0 ? fontScale * -1 : fontScale
         
-        fontScale = fontScale < 1 && fontScale > 0 ? fontScale * 5  : fontScale
+        fontScale = fontScale < 100 && fontScale > 10 ? (fontScale / 10) * 0.5 : fontScale
         
         textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
         
