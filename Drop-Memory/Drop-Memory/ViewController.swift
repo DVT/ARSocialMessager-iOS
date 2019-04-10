@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         didSet {
             if !didSet {
                 showLodingIndicator(mustShow: true)
-                retrieveWorldMapData()
+                _ = retrieveWorldMapData()
                 didSet = true
             }
         }
@@ -122,7 +122,7 @@ class ViewController: UIViewController {
         let textNode = SCNNode(geometry: text)
         textNode.geometry?.firstMaterial?.diffuse.contents = UIColor.black
         
-        var fontScale: Float = 0.01
+        let fontScale: Float = 0.01
         
 //        if let planeAnchor = anchor as? ARPlaneAnchor {
 //            fontScale *= 1/planeAnchor.center.z
@@ -256,7 +256,7 @@ class ViewController: UIViewController {
                 print("world map download error: \(error)")
                 print("world map download error: \(data)")
                 guard let data = data, let unarchievedObject = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data),
-                    let worldMap: ARWorldMap = unarchievedObject else { self.setLabel(text: "Error: Failed to unarchieve WorldMap")
+                    let worldMap: ARWorldMap = unarchievedObject else { self.setLabel(text: "Error: Failed to unarchive WorldMap")
                         return }
                 for anchor in worldMap.anchors {
                     print("LOADED ID: \(anchor.identifier)")
