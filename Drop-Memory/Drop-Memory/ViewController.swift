@@ -113,22 +113,15 @@ class ViewController: UIViewController {
             }
         }
         
-        let text = SCNText(string: TextHelper.message, extrusionDepth: 0.1)
+        let text = SCNText(string: TextHelper.message, extrusionDepth: 0.005)
         text.font = UIFont.systemFont(ofSize: 1)
-        text.flatness = 0.005
+        text.containerFrame = CGRect(x: CGFloat(0.0), y: CGFloat(0.0), width: CGFloat(0.2), height: CGFloat(0.2))
+        
+        text.flatness = 0.0001
         let textNode = SCNNode(geometry: text)
+        textNode.geometry?.firstMaterial?.diffuse.contents = UIColor.black
         
         var fontScale: Float = 0.01
-        
-        if let planeAnchor = anchor as? ARPlaneAnchor {
-            fontScale *= 1/planeAnchor.center.z
-        } else {
-            fontScale *= 1/anchor.transform.translation.z
-        }
-    
-        fontScale = fontScale < 0 ? fontScale * -1 : fontScale
-        
-        fontScale = fontScale < 100 && fontScale > 10 ? (fontScale / 10) * 0.5 : fontScale
         
         textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
         
@@ -137,15 +130,18 @@ class ViewController: UIViewController {
         let dy = min.y + 0.5 * (max.y - min.y)
         let dz = min.z + 0.5 * (max.z - min.z)
         textNode.pivot = SCNMatrix4MakeTranslation(dx, dy, dz)
+        text.isWrapped = true
         
         let width = (max.x - min.x) * fontScale
         let height = (max.y - min.y) * fontScale
-        let plane = SCNPlane(width: CGFloat(width + 0.01), height: CGFloat(height + 0.01))
+        let plane = SCNPlane(width: CGFloat(0.2), height: CGFloat(0.2))
+        
         let planeNode = SCNNode(geometry: plane)
-        planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.8)
+        planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.lightGray.withAlphaComponent(0.8)
         planeNode.geometry?.firstMaterial?.isDoubleSided = true
         planeNode.position = textNode.position
         textNode.eulerAngles = planeNode.eulerAngles
+        
         
         //rotation
         if let currentFrame =  sceneView.session.currentFrame {
