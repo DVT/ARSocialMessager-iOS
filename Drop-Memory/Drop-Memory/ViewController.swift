@@ -49,6 +49,8 @@ class ViewController: UIViewController {
 //        locationManager.startUpdatingHeading()  //for angle
 //        locationManager.requestLocation()
         
+       
+        
     }
     
     func setScene() {
@@ -137,7 +139,7 @@ class ViewController: UIViewController {
         let height = (max.y - min.y) * fontScale
         let plane = SCNPlane(width: CGFloat(width + 0.2), height: CGFloat(height + 0.2))
         var planeNode = SCNNode(geometry: plane)
-        planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.lightGray.withAlphaComponent(0.8)
+        planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(0.8)
         plane.cornerRadius = plane.width * 0.05
         planeNode.geometry?.firstMaterial?.isDoubleSided = true
         planeNode.position = textNode.position
@@ -158,10 +160,193 @@ class ViewController: UIViewController {
         }
         
         textNode.transform = SCNMatrix4Translate(textNode.transform, 0.0, 0.0, 0.01)
-        planeNode.addChildNode(textNode)
-//        planeNode = planeNode.flattenedClone()
         
-        
+        if TextHelper.message.contains("lollipop") {
+            var displayScene = SKScene(fileNamed: "MeetingTemplate")!
+
+            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
+                title.text = "Lollipop Room"
+            }
+            
+            if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
+                desc.text = "Seats: 6 Type: Normal"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
+                label.text = "09:00 - 10:00"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name1") as? SKLabelNode {
+                label.text = "James"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time2") as? SKLabelNode {
+                label.text = "13:00 - 14:00"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name2") as? SKLabelNode {
+                label.text = "Rose"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
+               image.texture = SKTexture(imageNamed: "iosgrads")
+               
+            }
+           
+            
+            let material = SCNMaterial()
+            material.isDoubleSided = true
+            material.diffuse.contents = displayScene
+            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
+            plane.materials = [material]
+            
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let node = SCNNode(geometry: plane)
+            
+            planeNode.addChildNode(node)
+        } else if TextHelper.message.contains("ctrl") {
+            
+            var displayScene = SKScene(fileNamed: "MeetingTemplate")!
+            
+            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
+                title.text = "Ctrl Room"
+            }
+            
+            if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
+                desc.text = "Seats: 8 Type: Normal"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
+                label.text = "10:00 - 11:00"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name1") as? SKLabelNode {
+                label.text = "PJ"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time2") as? SKLabelNode {
+                label.text = "13:00 - 14:00"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name2") as? SKLabelNode {
+                label.text = "Ronnie"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
+                image.texture = SKTexture(imageNamed: "iosgrads")
+                
+            }
+            
+            
+            let material = SCNMaterial()
+            material.isDoubleSided = true
+            material.diffuse.contents = displayScene
+            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
+            plane.materials = [material]
+            
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let node = SCNNode(geometry: plane)
+            
+            planeNode.addChildNode(node)
+        } else if TextHelper.message.contains("alt") {
+            var displayScene = SKScene(fileNamed: "MeetingTemplate")!
+            
+            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
+                title.text = "Alt Room"
+            }
+            
+            if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
+                desc.text = "Seats: 4 Type: Normal"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
+                label.text = "08:00 - 10:00"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name1") as? SKLabelNode {
+                label.text = "Theunis"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time2") as? SKLabelNode {
+                label.text = "11:00 - 12:00"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name2") as? SKLabelNode {
+                label.text = "Saurabh"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
+                image.texture = SKTexture(imageNamed: "iosgrads")
+                
+            }
+            
+            
+            let material = SCNMaterial()
+            material.isDoubleSided = true
+            material.diffuse.contents = displayScene
+            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
+            plane.materials = [material]
+            
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let node = SCNNode(geometry: plane)
+            
+            planeNode.addChildNode(node)
+        } else if TextHelper.message.contains("del") {
+            var displayScene = SKScene(fileNamed: "MeetingTemplate")!
+            
+            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
+                title.text = "Del Room"
+            }
+            
+            if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
+                desc.text = "Seats: 4"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
+                label.text = "09:00 - 10:30"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name1") as? SKLabelNode {
+                label.text = "Ike"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time2") as? SKLabelNode {
+                label.text = "15:00 - 16:00"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name2") as? SKLabelNode {
+                label.text = "Chris"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name3") as? SKLabelNode {
+                label.text = "James"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time3") as? SKLabelNode {
+                label.text = "07:00 - 07:30"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
+                image.texture = SKTexture(imageNamed: "Delete_Room")
+                
+            }
+            
+            displayScene.backgroundColor = .clear
+            
+            let material = SCNMaterial()
+            material.isDoubleSided = true
+            material.diffuse.contents = displayScene
+            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
+            plane.materials = [material]
+            
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let node = SCNNode(geometry: plane)
+            
+            planeNode.addChildNode(node)
+        }else {
+            planeNode.addChildNode(textNode)
+        }
+ 
         return planeNode
     }
     
