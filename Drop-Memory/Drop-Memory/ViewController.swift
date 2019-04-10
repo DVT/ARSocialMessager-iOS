@@ -169,11 +169,11 @@ class ViewController: UIViewController {
             }
             
             if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
-                desc.text = "Seats: 6 Type: Normal"
+                desc.text = "Seats: 6"
             }
             
             if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
-                label.text = "09:00 - 10:00"
+                label.text = "11:00 - 12:30"
             }
             
             if let label = displayScene.childNode(withName: "Name1") as? SKLabelNode {
@@ -188,12 +188,20 @@ class ViewController: UIViewController {
                 label.text = "Rose"
             }
             
+            if let label = displayScene.childNode(withName: "Name3") as? SKLabelNode {
+                label.text = "PJ"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time3") as? SKLabelNode {
+                label.text = "09:00 - 10:00"
+            }
+            
             if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
-               image.texture = SKTexture(imageNamed: "iosgrads")
+               image.texture = SKTexture(imageNamed: "Lollipop_Room")
                
             }
            
-            
+             displayScene.backgroundColor = .clear
             let material = SCNMaterial()
             material.isDoubleSided = true
             material.diffuse.contents = displayScene
@@ -213,7 +221,15 @@ class ViewController: UIViewController {
             }
             
             if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
-                desc.text = "Seats: 8 Type: Normal"
+                desc.text = "Seats: 8"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time3") as? SKLabelNode {
+                label.text = "08:00 - 09:30"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name3") as? SKLabelNode {
+                label.text = "Rose"
             }
             
             if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
@@ -237,7 +253,7 @@ class ViewController: UIViewController {
                 
             }
             
-            
+             displayScene.backgroundColor = .clear
             let material = SCNMaterial()
             material.isDoubleSided = true
             material.diffuse.contents = displayScene
@@ -256,7 +272,15 @@ class ViewController: UIViewController {
             }
             
             if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
-                desc.text = "Seats: 4 Type: Normal"
+                desc.text = "Seats: 4"
+            }
+            
+            if let label = displayScene.childNode(withName: "Time3") as? SKLabelNode {
+                label.text = "07:00 - 08:00"
+            }
+            
+            if let label = displayScene.childNode(withName: "Name3") as? SKLabelNode {
+                label.text = "Ronnie"
             }
             
             if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
@@ -280,7 +304,7 @@ class ViewController: UIViewController {
                 
             }
             
-            
+             displayScene.backgroundColor = .clear
             let material = SCNMaterial()
             material.isDoubleSided = true
             material.diffuse.contents = displayScene
@@ -346,7 +370,8 @@ class ViewController: UIViewController {
         }else {
             planeNode.addChildNode(textNode)
         }
- 
+        
+        planeNode.position = SCNVector3(0,0,-0.3)
         return planeNode
     }
     
