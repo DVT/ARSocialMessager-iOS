@@ -300,7 +300,7 @@ class ViewController: UIViewController {
             }
             
             if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
-                image.texture = SKTexture(imageNamed: "iosgrads")
+                image.texture = SKTexture(imageNamed: "Alt_Room")
                 
             }
             
