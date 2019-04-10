@@ -113,6 +113,7 @@ class ViewController: UIViewController {
             }
         }
         
+        
         let text = SCNText(string: TextHelper.message, extrusionDepth: 0.05)
         text.font = UIFont(name: "Arial", size: 10)
         text.flatness = 0.005
@@ -123,16 +124,6 @@ class ViewController: UIViewController {
         textNode.geometry?.firstMaterial?.diffuse.contents = UIColor.black
         
         let fontScale: Float = 0.01
-        
-//        if let planeAnchor = anchor as? ARPlaneAnchor {
-//            fontScale *= 1/planeAnchor.center.z
-//        } else {
-//            fontScale *= 1/anchor.transform.translation.z
-//        }
-//
-//        fontScale = fontScale < 0 ? fontScale * -1 : fontScale
-//
-//        fontScale = fontScale < 100 && fontScale > 10 ? (fontScale / 10) * 0.5 : fontScale
         
         textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
         
@@ -145,7 +136,7 @@ class ViewController: UIViewController {
         let width = (max.x - min.x) * fontScale
         let height = (max.y - min.y) * fontScale
         let plane = SCNPlane(width: CGFloat(width + 0.2), height: CGFloat(height + 0.2))
-        let planeNode = SCNNode(geometry: plane)
+        var planeNode = SCNNode(geometry: plane)
         planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.lightGray.withAlphaComponent(0.8)
         plane.cornerRadius = plane.width * 0.05
         planeNode.geometry?.firstMaterial?.isDoubleSided = true
@@ -165,7 +156,12 @@ class ViewController: UIViewController {
         } else {
             planeNode.transform = SCNMatrix4Translate(planeNode.transform, anchor.transform.translation.x, anchor.transform.translation.y, anchor.transform.translation.z)
         }
+        
+        textNode.transform = SCNMatrix4Translate(textNode.transform, 0.0, 0.0, 0.01)
         planeNode.addChildNode(textNode)
+//        planeNode = planeNode.flattenedClone()
+        
+        
         return planeNode
     }
     
