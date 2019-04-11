@@ -40,16 +40,16 @@ class ViewController: UIViewController {
         setScene()
         storageRef = Storage.storage().reference()
         ref = Database.database().reference()
-//        print("bucket \(storageRef.bucket)")
-
+        //        print("bucket \(storageRef.bucket)")
+        
         //Location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         //for location updates -> uncomment to enable
-//        locationManager.startUpdatingHeading()  //for angle
-//        locationManager.requestLocation()
+        //        locationManager.startUpdatingHeading()  //for angle
+        //        locationManager.requestLocation()
         
-       
+        
         
     }
     
@@ -105,7 +105,7 @@ class ViewController: UIViewController {
         }
     }
     
-
+    
     func generateLabelNode (anchor: ARAnchor) -> SCNNode {
         
         for myAnchor in anchorsArray {
@@ -163,7 +163,7 @@ class ViewController: UIViewController {
         
         if TextHelper.message.contains("lollipop") {
             var displayScene = SKScene(fileNamed: "MeetingTemplate")!
-
+            
             if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
                 title.text = "Lollipop Room"
             }
@@ -197,11 +197,11 @@ class ViewController: UIViewController {
             }
             
             if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
-               image.texture = SKTexture(imageNamed: "Lollipop_Room")
-               
+                image.texture = SKTexture(imageNamed: "Lollipop_Room")
+                
             }
-           
-             displayScene.backgroundColor = .clear
+            
+            displayScene.backgroundColor = .clear
             let material = SCNMaterial()
             material.isDoubleSided = true
             material.diffuse.contents = displayScene
@@ -253,7 +253,7 @@ class ViewController: UIViewController {
                 
             }
             
-             displayScene.backgroundColor = .clear
+            displayScene.backgroundColor = .clear
             let material = SCNMaterial()
             material.isDoubleSided = true
             material.diffuse.contents = displayScene
@@ -304,7 +304,7 @@ class ViewController: UIViewController {
                 
             }
             
-             displayScene.backgroundColor = .clear
+            displayScene.backgroundColor = .clear
             let material = SCNMaterial()
             material.isDoubleSided = true
             material.diffuse.contents = displayScene
@@ -368,7 +368,7 @@ class ViewController: UIViewController {
             
             planeNode.addChildNode(node)
         } else if TextHelper.message.contains("aircon") {
-             var displayScene = SKScene(fileNamed: "InfoTemplate")!
+            var displayScene = SKScene(fileNamed: "InfoTemplate")!
             
             if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
                 title.text = "Aircon Remote"
@@ -541,7 +541,7 @@ class ViewController: UIViewController {
             planeNode.addChildNode(textNode)
         }
         
-        planeNode.position = SCNVector3(0,0,-0.3)
+        //planeNode.position = SCNVector3(0,0,-0.3)
         return planeNode
     }
     
@@ -651,7 +651,7 @@ class ViewController: UIViewController {
                             self.loadStuff(worldMap: worldMap)
                         }
                 }
-              
+                
                 print("world map download error: \(error)")
             }
             return nil
@@ -690,10 +690,10 @@ class ViewController: UIViewController {
             let anchor = ARAnchor(transform: hitTestResult.worldTransform)
             let model = AnchorTextModel(fileName: self.fileName, anchorID: anchor.identifier.uuidString , text: TextHelper.message)
             print("the messgage model is: \(model)")
-
+            
             self.ref.child(self.fileName.replacingOccurrences(of: ".", with: "_")).childByAutoId().setValue(["fileName": model.fileName,
-                "anchorID": model.anchorID,
-                "text": model.text])
+                                                                                                             "anchorID": model.anchorID,
+                                                                                                             "text": model.text])
             self.sceneView.session.add(anchor: anchor)
         }))
         
@@ -707,7 +707,7 @@ class ViewController: UIViewController {
         }
     }
 }
-    
+
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard !(anchor is ARPlaneAnchor) else { return }
@@ -757,8 +757,5 @@ extension UIImage {
             .draw(in: breadthRect)
         return UIGraphicsGetImageFromCurrentImageContext()
     }
-    
-    // classic 'circleMasked' stackoverflow fragment
-    // courtesy Leo Dabius /a/29047372/294884
 }
 
