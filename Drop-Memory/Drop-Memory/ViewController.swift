@@ -137,7 +137,7 @@ class ViewController: UIViewController {
         
         let width = (max.x - min.x) * fontScale
         let height = (max.y - min.y) * fontScale
-        let plane = SCNPlane(width: CGFloat(width + 0.2), height: CGFloat(height + 0.2))
+        let plane = SCNPlane(width: CGFloat(width * 2), height: CGFloat(height + 0.2))
         var planeNode = SCNNode(geometry: plane)
         planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(0.8)
         plane.cornerRadius = plane.width * 0.05
@@ -249,7 +249,7 @@ class ViewController: UIViewController {
             }
             
             if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
-                image.texture = SKTexture(imageNamed: "iosgrads")
+                image.texture = SKTexture(imageNamed: "Control_Room")
                 
             }
             
@@ -367,7 +367,177 @@ class ViewController: UIViewController {
             let node = SCNNode(geometry: plane)
             
             planeNode.addChildNode(node)
-        }else {
+        } else if TextHelper.message.contains("aircon") {
+             var displayScene = SKScene(fileNamed: "InfoTemplate")!
+            
+            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
+                title.text = "Aircon Remote"
+            }
+            
+            if let info = displayScene.childNode(withName: "Info") as? SKLabelNode {
+                info.text = "- Should not be set below 25 \n- Switch off after 6pm \n \n"
+            }
+            
+            if let setter = displayScene.childNode(withName: "Setter") as? SKLabelNode {
+                setter.text = "By: Management"
+            }
+            
+            displayScene.backgroundColor = UIColor.transparentWhite
+            let material = SCNMaterial()
+            material.isDoubleSided = true
+            material.diffuse.contents = displayScene
+            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
+            plane.materials = [material]
+            
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let node = SCNNode(geometry: plane)
+            
+            planeNode.addChildNode(node)
+            
+        } else if TextHelper.message.contains("vending") {
+            var displayScene = SKScene(fileNamed: "InfoTemplate")!
+            
+            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
+                title.text = "Vending Machine"
+            }
+            
+            if let info = displayScene.childNode(withName: "Info") as? SKLabelNode {
+                info.preferredMaxLayoutWidth = 350
+                info.text = "- For assistance with the vending machine contact Bongani \n- Only accepts R10 and R20 notes"
+                
+            }
+            
+            if let setter = displayScene.childNode(withName: "Setter") as? SKLabelNode {
+                setter.text = "By: Management"
+            }
+            
+            displayScene.backgroundColor = UIColor.transparentWhite
+            let material = SCNMaterial()
+            material.isDoubleSided = true
+            material.diffuse.contents = displayScene
+            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
+            plane.materials = [material]
+            
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let node = SCNNode(geometry: plane)
+            
+            planeNode.addChildNode(node)
+            
+        } else if TextHelper.message.contains("aid") {
+            var displayScene = SKScene(fileNamed: "InfoTemplate")!
+            
+            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
+                title.text = "First Aid Kit"
+            }
+            
+            if let info = displayScene.childNode(withName: "Info") as? SKLabelNode {
+                info.text = "- Contact James if you're dying ☠️ and need the key \n 😷"
+                info.preferredMaxLayoutWidth = 350
+            }
+            
+            if let setter = displayScene.childNode(withName: "Setter") as? SKLabelNode {
+                setter.text = "By: Management"
+            }
+            
+            displayScene.backgroundColor = UIColor.transparentWhite
+            let material = SCNMaterial()
+            material.isDoubleSided = true
+            material.diffuse.contents = displayScene
+            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
+            plane.materials = [material]
+            
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let node = SCNNode(geometry: plane)
+            
+            planeNode.addChildNode(node)
+        } else if TextHelper.message.contains("hangers") {
+            var displayScene = SKScene(fileNamed: "InfoTemplate")!
+            
+            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
+                title.text = "Alien Contact \nDevice"
+            }
+            
+            if let info = displayScene.childNode(withName: "Info") as? SKLabelNode {
+                info.text = "- Pull these buttons to call the 👽 aliens 👽 \n \n"
+                info.preferredMaxLayoutWidth = 350
+            }
+            
+            if let setter = displayScene.childNode(withName: "Setter") as? SKLabelNode {
+                setter.text = "By: James"
+            }
+            
+            displayScene.backgroundColor = UIColor.transparentWhite
+            let material = SCNMaterial()
+            material.isDoubleSided = true
+            material.diffuse.contents = displayScene
+            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
+            plane.materials = [material]
+            
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let node = SCNNode(geometry: plane)
+            
+            planeNode.addChildNode(node)
+        } else if TextHelper.message.contains("office1") {
+            var displayScene = SKScene(fileNamed: "OfficeTemplate")!
+            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
+                title.text = "HR Office"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image1") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "Jon")!.circleMasked! )
+            }
+            if let setter = displayScene.childNode(withName: "Name1") as? SKLabelNode {
+                setter.text = "Jon"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image2") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "Daenerys")!.circleMasked! )
+            }
+            if let name = displayScene.childNode(withName: "Name2") as? SKLabelNode {
+                name.text = "Daenerys"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image3") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "Jaime")!.circleMasked! )
+            }
+            if let name = displayScene.childNode(withName: "Name3") as? SKLabelNode {
+                name.text = "Jaime"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image4") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "Tyrion")!.circleMasked! )
+            }
+            if let name = displayScene.childNode(withName: "Name4") as? SKLabelNode {
+                name.text = "Tyrion"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image5") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "Bronn")!.circleMasked! )
+            }
+            if let name = displayScene.childNode(withName: "Name5") as? SKLabelNode {
+                name.text = "Bronn"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image6") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "Cersei")!.circleMasked! )
+            }
+            if let name = displayScene.childNode(withName: "Name6") as? SKLabelNode {
+                name.text = "Cersei"
+            }
+            
+            
+            displayScene.backgroundColor = UIColor.transparentWhite
+            let material = SCNMaterial()
+            material.isDoubleSided = true
+            material.diffuse.contents = displayScene
+            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
+            plane.materials = [material]
+            
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let node = SCNNode(geometry: plane)
+            
+        }
+        else {
             planeNode.addChildNode(textNode)
         }
         
@@ -560,5 +730,35 @@ extension UIColor {
     open class var transparentWhite: UIColor {
         return UIColor.white.withAlphaComponent(0.70)
     }
+}
+
+extension UIImage {
+    
+    var isPortrait:  Bool    { return size.height > size.width }
+    var isLandscape: Bool    { return size.width > size.height }
+    var breadth:     CGFloat { return min(size.width, size.height) }
+    var breadthSize: CGSize  { return CGSize(width: breadth, height: breadth) }
+    var breadthRect: CGRect  { return CGRect(origin: .zero, size: breadthSize) }
+    
+    var circleMasked: UIImage? {
+        
+        UIGraphicsBeginImageContextWithOptions(breadthSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        
+        guard let cgImage = cgImage?.cropping(to: CGRect(origin:
+            CGPoint(
+                x: isLandscape ? floor((size.width - size.height) / 2) : 0,
+                y: isPortrait  ? floor((size.height - size.width) / 2) : 0),
+                                                         size: breadthSize))
+            else { return nil }
+        
+        UIBezierPath(ovalIn: breadthRect).addClip()
+        UIImage(cgImage: cgImage, scale: 1, orientation: imageOrientation)
+            .draw(in: breadthRect)
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    // classic 'circleMasked' stackoverflow fragment
+    // courtesy Leo Dabius /a/29047372/294884
 }
 
