@@ -540,8 +540,66 @@ class ViewController: UIViewController {
             plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
             let node = SCNNode(geometry: plane)
             
-        }
-        else {
+        } else if TextHelper.message.contains("office2") {
+            var displayScene = SKScene(fileNamed: "OfficeTemplate")!
+            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
+                title.text = "Admin Office"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image1") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "rdj")!.circleMasked! )
+            }
+            if let setter = displayScene.childNode(withName: "Name1") as? SKLabelNode {
+                setter.text = "Tony"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image2") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "captainAmerica")!.circleMasked! )
+            }
+            if let name = displayScene.childNode(withName: "Name2") as? SKLabelNode {
+                name.text = "Steve"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image3") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "thor")!.circleMasked! )
+            }
+            if let name = displayScene.childNode(withName: "Name3") as? SKLabelNode {
+                name.text = "Thor"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image4") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "widow")!.circleMasked! )
+            }
+            if let name = displayScene.childNode(withName: "Name4") as? SKLabelNode {
+                name.text = "Natasha"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image5") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "spiderman")!.circleMasked! )
+            }
+            if let name = displayScene.childNode(withName: "Name5") as? SKLabelNode {
+                name.text = "Peter"
+            }
+            
+            if let image = displayScene.childNode(withName: "Image6") as? SKSpriteNode {
+                image.texture = SKTexture( image: UIImage(named: "hulk")!.circleMasked! )
+            }
+            if let name = displayScene.childNode(withName: "Name6") as? SKLabelNode {
+                name.text = "Bruce"
+            }
+            
+            
+            displayScene.backgroundColor = UIColor.transparentWhite
+            let material = SCNMaterial()
+            material.isDoubleSided = true
+            material.diffuse.contents = displayScene
+            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
+            plane.materials = [material]
+            
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let node = SCNNode(geometry: plane)
+            
+        } else {
             planeNode.addChildNode(textNode)
         }
         
