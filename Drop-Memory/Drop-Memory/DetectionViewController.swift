@@ -21,7 +21,7 @@ class DetectionViewController: UIViewController, ARSCNViewDelegate {
         sceneView.delegate = self
         
         // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+        //sceneView.showsStatistics = true
         
         // Create a new scene
         let scene = SCNScene(named: "art.scnassets/scene.scn")!
@@ -40,6 +40,8 @@ class DetectionViewController: UIViewController, ARSCNViewDelegate {
         
         // Run the view's session
         sceneView.session.run(configuration)
+    }
+    @IBAction func switchMode(_ sender: UISwitch) {
     }
     
     override func viewWillDisappear(_ animated: Bool) {

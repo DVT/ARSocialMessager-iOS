@@ -32,6 +32,10 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func switchMode(_ sender: UISwitch) {
+        addButton.isHidden = true
+        sender.isHidden = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,7 +53,7 @@ class ViewController: UIViewController {
         //        locationManager.startUpdatingHeading()  //for angle
         //        locationManager.requestLocation()
         
-        
+        label.isHidden = true
         
     }
     
@@ -62,7 +66,7 @@ class ViewController: UIViewController {
         addButton.setTitle("+", for: .normal)
         addButton.setTitleColor(.white, for: .normal)
         addButton.titleLabel?.font = UIFont(name: "Arial", size: 30)
-        addButton.frame = CGRect(x: (view.frame.size.width / 2) - 25, y: view.frame.size.height - 195, width: 50, height: 50)
+        addButton.frame = CGRect(x: (view.frame.size.width / 2) - 25, y: view.frame.size.height - 120, width: 50, height: 50)
         addButton.layer.masksToBounds = true
         addButton.layer.cornerRadius = addButton.frame.width/2
         
@@ -605,7 +609,7 @@ class ViewController: UIViewController {
             setLabel(text: "Move camera around to map your surrounding space.")
         }
         
-        sceneView.debugOptions = [.showFeaturePoints]
+        //sceneView.debugOptions = [.showFeaturePoints]
         sceneView.session.run(configuration, options: options)
         let childNodes = scene.rootNode.childNodes
         for node in childNodes {
