@@ -119,7 +119,6 @@ class ViewController: UIViewController {
             }
         }
         
-        
         let text = SCNText(string: TextHelper.message, extrusionDepth: 0.05)
         text.font = UIFont(name: "Arial", size: 10)
         text.flatness = 0.005
@@ -149,6 +148,171 @@ class ViewController: UIViewController {
         planeNode.position = textNode.position
         textNode.eulerAngles = planeNode.eulerAngles
         
+        var isTemplateNodes = true
+        var node: SCNNode? = nil
+        var sceneNote: SKScene? = nil
+        if TextHelper.message.contains("lollipop") {
+            let note = CreateNote(type: Note(noteType: .Meeting, meetingRoom: .lollipop, infoType: .not, office: .not))
+            sceneNote = note.getScene()
+            if let displayScene =  sceneNote {
+                let material = SCNMaterial()
+                material.isDoubleSided = true
+                material.diffuse.contents = displayScene
+                plane.materials = [material]
+
+                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+                node = SCNNode(geometry: plane)
+    
+            } else {
+                isTemplateNodes = false
+            }
+        } else if TextHelper.message.contains("ctrl") {
+            
+            let note = CreateNote(type: Note(noteType: .Meeting, meetingRoom: .ctrl, infoType: .not, office: .not))
+            sceneNote = note.getScene()
+            if let displayScene =  sceneNote {
+                let material = SCNMaterial()
+                material.isDoubleSided = true
+                material.diffuse.contents = displayScene
+                plane.materials = [material]
+                
+                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+                node = SCNNode(geometry: plane)
+                
+            } else {
+                isTemplateNodes = false
+            }
+            
+        } else if TextHelper.message.contains("alt") {
+            let note = CreateNote(type: Note(noteType: .Meeting, meetingRoom: .alt, infoType: .not, office: .not))
+            sceneNote = note.getScene()
+            if let displayScene =  sceneNote {
+                let material = SCNMaterial()
+                material.isDoubleSided = true
+                material.diffuse.contents = displayScene
+                plane.materials = [material]
+                
+                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+                node = SCNNode(geometry: plane)
+                
+            } else {
+                isTemplateNodes = false
+            }
+
+        } else if TextHelper.message.contains("del") {
+            let note = CreateNote(type: Note(noteType: .Meeting, meetingRoom: .del, infoType: .not, office: .not))
+            sceneNote = note.getScene()
+            if let displayScene =  sceneNote {
+                let material = SCNMaterial()
+                material.isDoubleSided = true
+                material.diffuse.contents = displayScene
+                plane.materials = [material]
+                
+                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+                node = SCNNode(geometry: plane)
+                
+            } else {
+                isTemplateNodes = false
+            }
+        } else if TextHelper.message.contains("aircon") {
+            let note = CreateNote(type: Note(noteType: .Info, meetingRoom: .not, infoType: .aircon, office: .not))
+            sceneNote = note.getScene()
+            if let displayScene =  sceneNote {
+                let material = SCNMaterial()
+                material.isDoubleSided = true
+                material.diffuse.contents = displayScene
+                plane.materials = [material]
+    
+                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+                node = SCNNode(geometry: plane)
+    
+            } else {
+                isTemplateNodes = false
+            }
+
+        } else if TextHelper.message.contains("vending") {
+            let note = CreateNote(type: Note(noteType: .Info, meetingRoom: .not, infoType: .vendingMachine, office: .not))
+            sceneNote = note.getScene()
+            if let displayScene =  sceneNote {
+                let material = SCNMaterial()
+                material.isDoubleSided = true
+                material.diffuse.contents = displayScene
+                plane.materials = [material]
+                
+                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+                node = SCNNode(geometry: plane)
+                
+            } else {
+                isTemplateNodes = false
+            }
+        } else if TextHelper.message.contains("aid") {
+            let note = CreateNote(type: Note(noteType: .Info, meetingRoom: .not, infoType: .firstAid, office: .not))
+            sceneNote = note.getScene()
+            if let displayScene =  sceneNote {
+                let material = SCNMaterial()
+                material.isDoubleSided = true
+                material.diffuse.contents = displayScene
+                plane.materials = [material]
+                
+                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+                node = SCNNode(geometry: plane)
+                
+            } else {
+                isTemplateNodes = false
+            }
+        } else if TextHelper.message.contains("hangers") {
+            let note = CreateNote(type: Note(noteType: .Info, meetingRoom: .not, infoType: .hangers, office: .not))
+            sceneNote = note.getScene()
+            if let displayScene =  sceneNote {
+                let material = SCNMaterial()
+                material.isDoubleSided = true
+                material.diffuse.contents = displayScene
+                plane.materials = [material]
+                
+                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+                node = SCNNode(geometry: plane)
+                
+            } else {
+                isTemplateNodes = false
+            }
+        } else if TextHelper.message.contains("office1") {
+            let note = CreateNote(type: Note(noteType: .Office, meetingRoom: .not, infoType: .not, office: .office1))
+            sceneNote = note.getScene()
+            if let displayScene =  sceneNote {
+                let material = SCNMaterial()
+                material.isDoubleSided = true
+                material.diffuse.contents = displayScene
+                plane.materials = [material]
+                
+                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+                node = SCNNode(geometry: plane)
+                
+            } else {
+                isTemplateNodes = false
+            }
+        } else if TextHelper.message.contains("office2") {
+            let note = CreateNote(type: Note(noteType: .Office, meetingRoom: .not, infoType: .not, office: .office2))
+            sceneNote = note.getScene()
+            if let displayScene =  sceneNote {
+                let material = SCNMaterial()
+                material.isDoubleSided = true
+                material.diffuse.contents = displayScene
+                plane.materials = [material]
+                
+                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+                node = SCNNode(geometry: plane)
+                
+            } else {
+                isTemplateNodes = false
+            }
+        } else {
+            isTemplateNodes = false
+            planeNode.addChildNode(textNode)
+        }
+        
+        if let node = node {
+            planeNode.addChildNode(node)
+        }
         //rotation
         if let currentFrame =  sceneView.session.currentFrame {
             planeNode.transform = SCNMatrix4MakeRotation(currentFrame.camera.eulerAngles.y, 0 , 1, 0)
@@ -158,452 +322,17 @@ class ViewController: UIViewController {
         
         //translation
         if let planeAnchor = anchor as? ARPlaneAnchor {
-            planeNode.transform = SCNMatrix4Translate(planeNode.transform, planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
+            planeNode.transform = SCNMatrix4Translate(planeNode.transform, planeAnchor.center.x, 0, planeAnchor.center.z + 0.05)
         } else {
-            planeNode.transform = SCNMatrix4Translate(planeNode.transform, anchor.transform.translation.x, anchor.transform.translation.y, anchor.transform.translation.z)
+            planeNode.transform = SCNMatrix4Translate(planeNode.transform, anchor.transform.translation.x, 0, anchor.transform.translation.z + 0.05)
         }
         
-        textNode.transform = SCNMatrix4Translate(textNode.transform, 0.0, 0.0, 0.01)
-        
-        if TextHelper.message.contains("lollipop") {
-            var displayScene = SKScene(fileNamed: "MeetingTemplate")!
-            
-            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
-                title.text = "Lollipop Room"
-            }
-            
-            if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
-                desc.text = "Seats: 6"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
-                label.text = "11:00 - 12:30"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name1") as? SKLabelNode {
-                label.text = "James"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time2") as? SKLabelNode {
-                label.text = "13:00 - 14:00"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name2") as? SKLabelNode {
-                label.text = "Rose"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name3") as? SKLabelNode {
-                label.text = "PJ"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time3") as? SKLabelNode {
-                label.text = "09:00 - 10:00"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
-                image.texture = SKTexture(imageNamed: "Lollipop_Room")
-                
-            }
-            
-            displayScene.backgroundColor = .clear
-            let material = SCNMaterial()
-            material.isDoubleSided = true
-            material.diffuse.contents = displayScene
-            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
-            plane.materials = [material]
-            
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-            let node = SCNNode(geometry: plane)
-            
-            planeNode.addChildNode(node)
-        } else if TextHelper.message.contains("ctrl") {
-            
-            var displayScene = SKScene(fileNamed: "MeetingTemplate")!
-            
-            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
-                title.text = "Ctrl Room"
-            }
-            
-            if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
-                desc.text = "Seats: 8"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time3") as? SKLabelNode {
-                label.text = "08:00 - 09:30"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name3") as? SKLabelNode {
-                label.text = "Rose"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
-                label.text = "10:00 - 11:00"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name1") as? SKLabelNode {
-                label.text = "PJ"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time2") as? SKLabelNode {
-                label.text = "13:00 - 14:00"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name2") as? SKLabelNode {
-                label.text = "Ronnie"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
-                image.texture = SKTexture(imageNamed: "Control_Room")
-                
-            }
-            
-            displayScene.backgroundColor = .clear
-            let material = SCNMaterial()
-            material.isDoubleSided = true
-            material.diffuse.contents = displayScene
-            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
-            plane.materials = [material]
-            
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-            let node = SCNNode(geometry: plane)
-            
-            planeNode.addChildNode(node)
-        } else if TextHelper.message.contains("alt") {
-            var displayScene = SKScene(fileNamed: "MeetingTemplate")!
-            
-            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
-                title.text = "Alt Room"
-            }
-            
-            if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
-                desc.text = "Seats: 4"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time3") as? SKLabelNode {
-                label.text = "07:00 - 08:00"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name3") as? SKLabelNode {
-                label.text = "Ronnie"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
-                label.text = "08:00 - 10:00"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name1") as? SKLabelNode {
-                label.text = "Theunis"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time2") as? SKLabelNode {
-                label.text = "11:00 - 12:00"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name2") as? SKLabelNode {
-                label.text = "Saurabh"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
-                image.texture = SKTexture(imageNamed: "Alt_Room")
-                
-            }
-            
-            displayScene.backgroundColor = .clear
-            let material = SCNMaterial()
-            material.isDoubleSided = true
-            material.diffuse.contents = displayScene
-            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
-            plane.materials = [material]
-            
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-            let node = SCNNode(geometry: plane)
-            
-            planeNode.addChildNode(node)
-        } else if TextHelper.message.contains("del") {
-            var displayScene = SKScene(fileNamed: "MeetingTemplate")!
-            
-            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
-                title.text = "Del Room"
-            }
-            
-            if let desc = displayScene.childNode(withName: "Description") as? SKLabelNode {
-                desc.text = "Seats: 4"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time1") as? SKLabelNode {
-                label.text = "09:00 - 10:30"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name1") as? SKLabelNode {
-                label.text = "Ike"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time2") as? SKLabelNode {
-                label.text = "15:00 - 16:00"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name2") as? SKLabelNode {
-                label.text = "Chris"
-            }
-            
-            if let label = displayScene.childNode(withName: "Name3") as? SKLabelNode {
-                label.text = "James"
-            }
-            
-            if let label = displayScene.childNode(withName: "Time3") as? SKLabelNode {
-                label.text = "07:00 - 07:30"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image") as? SKSpriteNode {
-                image.texture = SKTexture(imageNamed: "Delete_Room")
-                
-            }
-            
-            displayScene.backgroundColor = .clear
-            
-            let material = SCNMaterial()
-            material.isDoubleSided = true
-            material.diffuse.contents = displayScene
-            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
-            plane.materials = [material]
-            
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-            let node = SCNNode(geometry: plane)
-            
-            planeNode.addChildNode(node)
-        } else if TextHelper.message.contains("aircon") {
-            var displayScene = SKScene(fileNamed: "InfoTemplate")!
-            
-            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
-                title.text = "Aircon Remote"
-            }
-            
-            if let info = displayScene.childNode(withName: "Info") as? SKLabelNode {
-                info.text = "- Should not be set below 25 \n- Switch off after 6pm \n \n"
-            }
-            
-            if let setter = displayScene.childNode(withName: "Setter") as? SKLabelNode {
-                setter.text = "By: Management"
-            }
-            
-            displayScene.backgroundColor = UIColor.transparentWhite
-            let material = SCNMaterial()
-            material.isDoubleSided = true
-            material.diffuse.contents = displayScene
-            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
-            plane.materials = [material]
-            
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-            let node = SCNNode(geometry: plane)
-            
-            planeNode.addChildNode(node)
-            
-        } else if TextHelper.message.contains("vending") {
-            var displayScene = SKScene(fileNamed: "InfoTemplate")!
-            
-            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
-                title.text = "Vending Machine"
-            }
-            
-            if let info = displayScene.childNode(withName: "Info") as? SKLabelNode {
-                info.preferredMaxLayoutWidth = 350
-                info.text = "- For assistance with the vending machine contact Bongani \n- Only accepts R10 and R20 notes"
-                
-            }
-            
-            if let setter = displayScene.childNode(withName: "Setter") as? SKLabelNode {
-                setter.text = "By: Management"
-            }
-            
-            displayScene.backgroundColor = UIColor.transparentWhite
-            let material = SCNMaterial()
-            material.isDoubleSided = true
-            material.diffuse.contents = displayScene
-            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
-            plane.materials = [material]
-            
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-            let node = SCNNode(geometry: plane)
-            
-            planeNode.addChildNode(node)
-            
-        } else if TextHelper.message.contains("aid") {
-            var displayScene = SKScene(fileNamed: "InfoTemplate")!
-            
-            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
-                title.text = "First Aid Kit"
-            }
-            
-            if let info = displayScene.childNode(withName: "Info") as? SKLabelNode {
-                info.text = "- Contact James if you're dying ☠️ and need the key \n 😷"
-                info.preferredMaxLayoutWidth = 350
-            }
-            
-            if let setter = displayScene.childNode(withName: "Setter") as? SKLabelNode {
-                setter.text = "By: Management"
-            }
-            
-            displayScene.backgroundColor = UIColor.transparentWhite
-            let material = SCNMaterial()
-            material.isDoubleSided = true
-            material.diffuse.contents = displayScene
-            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
-            plane.materials = [material]
-            
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-            let node = SCNNode(geometry: plane)
-            
-            planeNode.addChildNode(node)
-        } else if TextHelper.message.contains("hangers") {
-            var displayScene = SKScene(fileNamed: "InfoTemplate")!
-            
-            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
-                title.text = "Alien Contact \nDevice"
-            }
-            
-            if let info = displayScene.childNode(withName: "Info") as? SKLabelNode {
-                info.text = "- Pull these buttons to call the 👽 aliens 👽 \n \n"
-                info.preferredMaxLayoutWidth = 350
-            }
-            
-            if let setter = displayScene.childNode(withName: "Setter") as? SKLabelNode {
-                setter.text = "By: James"
-            }
-            
-            displayScene.backgroundColor = UIColor.transparentWhite
-            let material = SCNMaterial()
-            material.isDoubleSided = true
-            material.diffuse.contents = displayScene
-            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
-            plane.materials = [material]
-            
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-            let node = SCNNode(geometry: plane)
-            
-            planeNode.addChildNode(node)
-        } else if TextHelper.message.contains("office1") {
-            var displayScene = SKScene(fileNamed: "OfficeTemplate")!
-            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
-                title.text = "HR Office"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image1") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "Jon")!.circleMasked! )
-            }
-            if let setter = displayScene.childNode(withName: "Name1") as? SKLabelNode {
-                setter.text = "Jon"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image2") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "Daenerys")!.circleMasked! )
-            }
-            if let name = displayScene.childNode(withName: "Name2") as? SKLabelNode {
-                name.text = "Daenerys"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image3") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "Jaime")!.circleMasked! )
-            }
-            if let name = displayScene.childNode(withName: "Name3") as? SKLabelNode {
-                name.text = "Jaime"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image4") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "Tyrion")!.circleMasked! )
-            }
-            if let name = displayScene.childNode(withName: "Name4") as? SKLabelNode {
-                name.text = "Tyrion"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image5") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "Bronn")!.circleMasked! )
-            }
-            if let name = displayScene.childNode(withName: "Name5") as? SKLabelNode {
-                name.text = "Bronn"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image6") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "Cersei")!.circleMasked! )
-            }
-            if let name = displayScene.childNode(withName: "Name6") as? SKLabelNode {
-                name.text = "Cersei"
-            }
-            
-            
-            displayScene.backgroundColor = UIColor.transparentWhite
-            let material = SCNMaterial()
-            material.isDoubleSided = true
-            material.diffuse.contents = displayScene
-            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
-            plane.materials = [material]
-            
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-            let node = SCNNode(geometry: plane)
-            
-        } else if TextHelper.message.contains("office2") {
-            var displayScene = SKScene(fileNamed: "OfficeTemplate")!
-            if let title = displayScene.childNode(withName: "Title") as? SKLabelNode {
-                title.text = "Admin Office"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image1") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "rdj")!.circleMasked! )
-            }
-            if let setter = displayScene.childNode(withName: "Name1") as? SKLabelNode {
-                setter.text = "Tony"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image2") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "captainAmerica")!.circleMasked! )
-            }
-            if let name = displayScene.childNode(withName: "Name2") as? SKLabelNode {
-                name.text = "Steve"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image3") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "thor")!.circleMasked! )
-            }
-            if let name = displayScene.childNode(withName: "Name3") as? SKLabelNode {
-                name.text = "Thor"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image4") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "widow")!.circleMasked! )
-            }
-            if let name = displayScene.childNode(withName: "Name4") as? SKLabelNode {
-                name.text = "Natasha"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image5") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "spiderman")!.circleMasked! )
-            }
-            if let name = displayScene.childNode(withName: "Name5") as? SKLabelNode {
-                name.text = "Peter"
-            }
-            
-            if let image = displayScene.childNode(withName: "Image6") as? SKSpriteNode {
-                image.texture = SKTexture( image: UIImage(named: "hulk")!.circleMasked! )
-            }
-            if let name = displayScene.childNode(withName: "Name6") as? SKLabelNode {
-                name.text = "Bruce"
-            }
-            
-            
-            displayScene.backgroundColor = UIColor.transparentWhite
-            let material = SCNMaterial()
-            material.isDoubleSided = true
-            material.diffuse.contents = displayScene
-            //material.diffuse.contentsTransform = SCNMatrix4MakeScale(1,-1,1)
-            plane.materials = [material]
-            
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-            let node = SCNNode(geometry: plane)
-            
+        if !isTemplateNodes {
+            textNode.transform = SCNMatrix4Translate(textNode.transform, 0.0, 0.0, 0.01)
         } else {
-            planeNode.addChildNode(textNode)
+            
         }
         
-        //planeNode.position = SCNVector3(0,0,-0.3)
         return planeNode
     }
     
