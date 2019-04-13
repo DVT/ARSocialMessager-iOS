@@ -151,149 +151,35 @@ class ViewController: UIViewController {
         var isTemplateNodes = true
         var node: SCNNode? = nil
         var sceneNote: SKScene? = nil
+        var note: Note? = nil
+        
         if TextHelper.message.contains("lollipop") {
-            let note = CreateNote(type: Note(noteType: .Meeting, meetingRoom: .lollipop, infoType: .not, office: .not))
-            sceneNote = note.getScene()
-            if let displayScene =  sceneNote {
-                let material = SCNMaterial()
-                material.isDoubleSided = true
-                material.diffuse.contents = displayScene
-                plane.materials = [material]
-
-                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-                node = SCNNode(geometry: plane)
-    
-            } else {
-                isTemplateNodes = false
-            }
+            note = Note(noteType: .Meeting, meetingRoom: .lollipop, infoType: .not, office: .not)
         } else if TextHelper.message.contains("ctrl") {
-            
-            let note = CreateNote(type: Note(noteType: .Meeting, meetingRoom: .ctrl, infoType: .not, office: .not))
-            sceneNote = note.getScene()
-            if let displayScene =  sceneNote {
-                let material = SCNMaterial()
-                material.isDoubleSided = true
-                material.diffuse.contents = displayScene
-                plane.materials = [material]
-                
-                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-                node = SCNNode(geometry: plane)
-                
-            } else {
-                isTemplateNodes = false
-            }
-            
+            note = Note(noteType: .Meeting, meetingRoom: .ctrl, infoType: .not, office: .not)
         } else if TextHelper.message.contains("alt") {
-            let note = CreateNote(type: Note(noteType: .Meeting, meetingRoom: .alt, infoType: .not, office: .not))
-            sceneNote = note.getScene()
-            if let displayScene =  sceneNote {
-                let material = SCNMaterial()
-                material.isDoubleSided = true
-                material.diffuse.contents = displayScene
-                plane.materials = [material]
-                
-                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-                node = SCNNode(geometry: plane)
-                
-            } else {
-                isTemplateNodes = false
-            }
-
+            note = Note(noteType: .Meeting, meetingRoom: .alt, infoType: .not, office: .not)
         } else if TextHelper.message.contains("del") {
-            let note = CreateNote(type: Note(noteType: .Meeting, meetingRoom: .del, infoType: .not, office: .not))
-            sceneNote = note.getScene()
-            if let displayScene =  sceneNote {
-                let material = SCNMaterial()
-                material.isDoubleSided = true
-                material.diffuse.contents = displayScene
-                plane.materials = [material]
-                
-                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-                node = SCNNode(geometry: plane)
-                
-            } else {
-                isTemplateNodes = false
-            }
+            note = Note(noteType: .Meeting, meetingRoom: .del, infoType: .not, office: .not)
         } else if TextHelper.message.contains("aircon") {
-            let note = CreateNote(type: Note(noteType: .Info, meetingRoom: .not, infoType: .aircon, office: .not))
-            sceneNote = note.getScene()
-            if let displayScene =  sceneNote {
-                let material = SCNMaterial()
-                material.isDoubleSided = true
-                material.diffuse.contents = displayScene
-                plane.materials = [material]
-    
-                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-                node = SCNNode(geometry: plane)
-    
-            } else {
-                isTemplateNodes = false
-            }
-
+           note = Note(noteType: .Info, meetingRoom: .not, infoType: .aircon, office: .not)
         } else if TextHelper.message.contains("vending") {
-            let note = CreateNote(type: Note(noteType: .Info, meetingRoom: .not, infoType: .vendingMachine, office: .not))
-            sceneNote = note.getScene()
-            if let displayScene =  sceneNote {
-                let material = SCNMaterial()
-                material.isDoubleSided = true
-                material.diffuse.contents = displayScene
-                plane.materials = [material]
-                
-                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-                node = SCNNode(geometry: plane)
-                
-            } else {
-                isTemplateNodes = false
-            }
+            note = Note(noteType: .Info, meetingRoom: .not, infoType: .vendingMachine, office: .not)
         } else if TextHelper.message.contains("aid") {
-            let note = CreateNote(type: Note(noteType: .Info, meetingRoom: .not, infoType: .firstAid, office: .not))
-            sceneNote = note.getScene()
-            if let displayScene =  sceneNote {
-                let material = SCNMaterial()
-                material.isDoubleSided = true
-                material.diffuse.contents = displayScene
-                plane.materials = [material]
-                
-                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-                node = SCNNode(geometry: plane)
-                
-            } else {
-                isTemplateNodes = false
-            }
+            note = Note(noteType: .Info, meetingRoom: .not, infoType: .firstAid, office: .not)
         } else if TextHelper.message.contains("hangers") {
-            let note = CreateNote(type: Note(noteType: .Info, meetingRoom: .not, infoType: .hangers, office: .not))
-            sceneNote = note.getScene()
-            if let displayScene =  sceneNote {
-                let material = SCNMaterial()
-                material.isDoubleSided = true
-                material.diffuse.contents = displayScene
-                plane.materials = [material]
-                
-                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-                node = SCNNode(geometry: plane)
-                
-            } else {
-                isTemplateNodes = false
-            }
+           note = Note(noteType: .Info, meetingRoom: .not, infoType: .hangers, office: .not)
         } else if TextHelper.message.contains("office1") {
-            let note = CreateNote(type: Note(noteType: .Office, meetingRoom: .not, infoType: .not, office: .office1))
-            sceneNote = note.getScene()
-            if let displayScene =  sceneNote {
-                let material = SCNMaterial()
-                material.isDoubleSided = true
-                material.diffuse.contents = displayScene
-                plane.materials = [material]
-                
-                plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-                node = SCNNode(geometry: plane)
-                
-            } else {
-                isTemplateNodes = false
-            }
+            note = Note(noteType: .Office, meetingRoom: .not, infoType: .not, office: .office1)
         } else if TextHelper.message.contains("office2") {
-            let note = CreateNote(type: Note(noteType: .Office, meetingRoom: .not, infoType: .not, office: .office2))
-            sceneNote = note.getScene()
-            if let displayScene =  sceneNote {
+            note = Note(noteType: .Office, meetingRoom: .not, infoType: .not, office: .office2)
+        } else {
+            isTemplateNodes = false
+            planeNode.addChildNode(textNode)
+        }
+        
+        if let note = note {
+            if let displayScene =  CreateNote(type: note).getScene() {
                 let material = SCNMaterial()
                 material.isDoubleSided = true
                 material.diffuse.contents = displayScene
@@ -307,8 +193,8 @@ class ViewController: UIViewController {
             }
         } else {
             isTemplateNodes = false
-            planeNode.addChildNode(textNode)
         }
+        
         
         if let node = node {
             planeNode.addChildNode(node)
